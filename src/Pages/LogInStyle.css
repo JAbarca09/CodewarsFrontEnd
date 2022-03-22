@@ -1,0 +1,23 @@
+.backgroundColor{
+    background-color: #303133;
+    height: 100vh;
+}
+
+.logo{
+    height: 20vmin;
+}
+
+.whiteFont{
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+.ButtonStyle{
+    background-color: #B0351E;
+    font-weight: 600;
+    width:100px;
+}
+
+.inputWidth{
+    width: 300px;;
+}
