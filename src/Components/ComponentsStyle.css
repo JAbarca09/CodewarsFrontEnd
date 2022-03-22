@@ -4,4 +4,20 @@
 
 .whiteFont{
     color: #FFFFFF;
+    font-size: 15px;
+}
+
+.logo{
+    height: 10vmin;
+}
+
+.katasReserved{
+    background-color: #262729;
+    border-color: #707070;
+    border-top: transparent;
+    
+}
+
+.reserveButton{
+    height: 30px;
 }

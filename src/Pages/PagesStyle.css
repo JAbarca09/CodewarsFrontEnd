@@ -1,0 +1,41 @@
+.backgroundColor{
+    background-color: #303133;
+    height: 100vh;
+}
+
+.logo{
+    height: 8vmin;
+}
+
+.whiteFont1{
+    color: #FFFFFF;
+    font-size: 13px;
+}
+.whiteFont2{
+    color: #FFFFFF;
+    font-size: 30px;
+}
+
+.ButtonStyle{
+    background-color: #1B78D1;
+    font-weight: 600;
+    width:100px;
+}
+
+.inputWidth{
+    width: 300px;;
+}
+.kataSearchBar{
+    height:50px;
+}
+.searchButton{
+    height:50px;
+    width: 100%;
+    margin-top: 6px;
+    border-radius: 10px;
+    font-size: x-large;
+}
+
+.curveRadius{
+    border-radius: 10px;
+}

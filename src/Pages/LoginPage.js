@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import CodewarsLogo from "../images/codestack-logo.svg";
-import "./LogInStyle.css";
+import "./PagesStyle.css";
 
 export default function LoginPage() {
   return (
@@ -22,7 +22,7 @@ export default function LoginPage() {
             <Form.Group><img src={CodewarsLogo} className="logo" /></Form.Group>
             </span>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className="whiteFont ms-2">Username</Form.Label>
+              <Form.Label className="whiteFont1 ms-2">Username</Form.Label>
               <Form.Control
                 className="inputWidth ms-2"
                 type="email"
@@ -31,7 +31,7 @@ export default function LoginPage() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="whiteFont ms-2">Password</Form.Label>
+              <Form.Label className="whiteFont1 ms-2">Password</Form.Label>
               <Form.Control
                 className="inputWidth ms-2"
                 type="password"
