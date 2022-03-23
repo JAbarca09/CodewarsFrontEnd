@@ -20,22 +20,25 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     let userData = {
-      Username: codeWarName,
+      CodeWarName: codeWarName,
       Password: password,
     };
+
     let token = await login(userData);
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
       let userItems1 = await getUserByUsername(codeWarName);
       setUserItems(userItems1);
-      navigate("/Dashboard");
+      navigate("/dashboard");
+    }else{
+      console.log("Not Signed In");
     }
   }; 
 
   return (
     <Container fluid className="backgroundColor d-flex align-items-center justify-content-center">
       <Form>
-        <Row clasName="">
+        <Row className="">
           <Col md={12} className="d-flex justify-content-center">
           <Form.Group><img src={CodewarsLogo} className="logo" /></Form.Group>
           </Col>
@@ -47,8 +50,8 @@ export default function LoginPage() {
               <Form.Label className="whiteFont1 ms-2">Username</Form.Label>
               <Form.Control
                 className="inputWidth ms-2"
-                type="email"
-                placeholder="Enter email"
+                type="text"
+                placeholder="Enter a Username"
                 onChange={({ target }) => setCodeWarName(target.value)}
               />
             </Form.Group>
