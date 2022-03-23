@@ -15,10 +15,10 @@ function App() {
     <UserContext.Provider value={useUser()}>
       <BrowserRouter>
         {/* <LoginPage/> */}
-        {/* <Dashboard/> */}
+        <Dashboard/>
         {/* <AdminDashboard/> */}
         {/* <CreateAccount/> */}
-        <AdminCreateCohort/>
+        {/* <AdminCreateCohort/> */}
 
 
 
