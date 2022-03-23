@@ -5,6 +5,7 @@ import LoginPage from "./Pages/LoginPage";
 import Dashboard from "./Pages/Dashboard";
 import AdminDashboard from "./Pages/AdminDashboard";
 import CreateAccount from "./Pages/CreateAccount";
+import AdminCreateCohort from "./Pages/AdminCreateCohort";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 import useUser from "./Hooks/use-user";
@@ -16,7 +17,8 @@ function App() {
         {/* <LoginPage/> */}
         {/* <Dashboard/> */}
         {/* <AdminDashboard/> */}
-        <CreateAccount/>
+        {/* <CreateAccount/> */}
+        <AdminCreateCohort/>
 
 
 
