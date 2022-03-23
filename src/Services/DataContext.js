@@ -259,3 +259,12 @@ async function getCohortById(id){
     let data = await res.json();
     return data;
 }
+
+export{ checkToken, createAccount, login,
+    updateUser, giveUserAdmin, permanentlyDeleteUser,
+    getAllUsers, getUserByUsername, getUserById,
+    getUsersByCohortName, getReservedKataByCodeWarName,
+    getAllReservedKatas, updateReservedKata, getAllCompletedKatas,
+    getAllCompletedKatasByCodeWarName, createCohort, updateCohort,
+    getCohortByCohortName, getCohortByCodeWarName, getCohortById
+}
