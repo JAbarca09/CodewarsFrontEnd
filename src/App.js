@@ -15,7 +15,7 @@ function App() {
     <UserContext.Provider value={useUser()}>
       <BrowserRouter>
         {/* <LoginPage/> */}
-        <Dashboard/>
+        {/* <Dashboard/> */}
         {/* <AdminDashboard/> */}
         {/* <CreateAccount/> */}
         {/* <AdminCreateCohort/> */}
@@ -23,8 +23,10 @@ function App() {
 
 
         <Routes>
-          {/* <Route path="/" element={<LoginPage/>} key="login"/> */}
-          {/* <Route path="dashboard" element={<Dashboard/>} key="dashboard"/> */}
+          <Route path="login" element={<LoginPage/>} key="login"/>
+          <Route path="dashboard" element={<Dashboard/>} key="dashboard"/>
+          <Route path="creataccount" element={<CreateAccount/>} key="creataccount"/>
+          <Route path="createcohort" element={<AdminCreateCohort/>} key="createcohort"/>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
