@@ -70,6 +70,46 @@ async function updateUser(id, codeWarName, cohortName, isAdmin, isDeleted){
     return data;
 }
 
+//Give User Admin
+async function giveUserAdmin(id){
+    let res = await fetch('http://localhost:5031/User/GiveUserAdmin/'+id, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify()
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
+//Permanently Delete a User
+async function permanentlyDeleteUser(id){
+    let res = await fetch('http://localhost:5031/User/DeleteUser/'+id, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify()
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
 //GetAllUsers
 async function getAllUsers(){
     let res = await fetch("http://localhost:5031/User/GetAllUsers");
