@@ -47,7 +47,7 @@ export default function Dashboard() {
     reservedKata = {
       Id : 0,
       CohortId : 0,
-      CodeWarName : admin,
+      CodeWarName : "admin",
       KataName : kata.name,
       KataSlug : kata.slug,
       KataLink : kata.url,
