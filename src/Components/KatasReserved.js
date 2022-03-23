@@ -2,6 +2,16 @@ import React from "react";
 import { Row, Col, Table } from "react-bootstrap";
 import "./ComponentsStyle.css";
 
+let exampleUser = {
+  Id: 0,
+  CohortName: "Season4",
+  CodeWarName: "Jabarca435",
+  Salt: "",
+  Hash: "",
+  IsAdmin: true,
+  IsDeleted: false,
+};
+
 export default function KatasReserved() {
   return (
     <>
