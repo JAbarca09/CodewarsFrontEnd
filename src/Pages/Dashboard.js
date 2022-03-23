@@ -32,7 +32,7 @@ export default function Dashboard() {
                   </Form.Group>
                 </Col>
                 <Col md={4} className="mt-4">
-                  <Button className="searchButton">Search</Button>
+                  <Button className="searchButton mt-3">Search</Button>
                 </Col>
               </Row>
             </Form>
