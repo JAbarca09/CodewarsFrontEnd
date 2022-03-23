@@ -149,3 +149,65 @@ async function getAllCompletedKatasByCodeWarName(codeWarName){
 }
 
 //------------------------------------------------------------------------------------------------------
+//These are for the Cohort
+
+//Add a Cohort
+async function createCohort(createdCohort){
+    let res = await fetch('http://localhost:5031/Cohort/AddCohort', {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(createdCohort)
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
+//Update Cohort
+async function updateCohort(updatedCohort){
+    let res = await fetch('http://localhost:5031/Cohort/UpdateCohort', {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(updatedCohort)
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
+//Get Cohort By Cohort Name
+async function getCohortByCohortName(cohortName){
+    let res = await fetch("http://localhost:5031/Cohort/GetCohortByCohortName/"+cohortName);
+    let data = await res.json();
+    return data;
+}
+
+//Get Cohort By CodeWar Name
+async function getCohortByCodeWarName(codewarName){
+    let res = await fetch("http://localhost:5031/Cohort/GetCohortByCodeWarName/"+codewarName);
+    let data = await res.json();
+    return data;
+}
+
+//Get Cohort By Id
+async function getCohortById(id){
+    let res = await fetch("http://localhost:5031/Cohort/GetCohortById/"+id);
+    let data = await res.json();
+    return data;
+}
