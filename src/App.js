@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import LoginPage from "./Pages/LoginPage";
 import Dashboard from "./Pages/Dashboard";
+import AdminDashboard from "./Pages/AdminDashboard";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         {/* <LoginPage/> */}
         <Dashboard/>
+        {/* <AdminDashboard/> */}
 
 
 

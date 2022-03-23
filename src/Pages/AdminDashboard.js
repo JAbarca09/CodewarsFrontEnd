@@ -1,56 +1,36 @@
-import React from "react";
+import React from 'react'
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import KatasReserved from "../Components/KatasReserved";
 import SearchKatas from "../Components/SearchKatas";
 import KatasCompleted from "../Components/KatasCompleted";
-import AdminDashboard from "./AdminDashboard";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import "./PagesStyle.css";
-
-let exampleUser = {
-  Id: 0,
-  CohortName: "Season4",
-  CodeWarName: "Jabarca435",
-  Salt: "",
-  Hash: "",
-  IsAdmin: true,
-  IsDeleted: false,  
-};
+import AdminKatasReserved from '../Components/AdminKatasReserved';
 
 
-export default function Dashboard() {
+
+export default function AdminDashboard() {
   return (
-    <>
-    { exampleUser.IsAdmin == true ?
-    <>
-    <Navigation />
-    <AdminDashboard/>
-    </>
-    :
-    <>
-    <Navigation />
-      <Container fluid className="backgroundColor">
+    <Container fluid className="backgroundColor">
         <Row className="pt-4">
-          <Col className="d-flex justify-content-center">
             {/* Cohort displayed based on user */}
+          {/* <Col className="d-flex justify-content-center">
             <h3 className="whiteFont2">Cohort: Season 4, 8 Kyu</h3>
-          </Col>
+          </Col> */}
         </Row>
         <Container>
-          <KatasReserved />
-          <Row>
+        <Row>
             <Col>
               <Form>
                 <Row>
                   <Col md={8}>
                     <Form.Group className="mb-3" controlId="formBasicKata">
                       <Form.Label className="whiteFont1">
-                        <h6>Search a Kata</h6>
+                        <h6>Search for a User</h6>
                       </Form.Label>
                       <Form.Control
                         className="kataSearchBar curveRadius"
                         type="text"
-                        placeholder="Kata's Name or ID"
+                        placeholder="Username"
                       />
                     </Form.Group>
                   </Col>
@@ -61,12 +41,9 @@ export default function Dashboard() {
               </Form>
             </Col>
           </Row>
-          <SearchKatas />
+          <AdminKatasReserved/>
           <KatasCompleted />
         </Container>
       </Container>
-    </>
-    }
-    </>
-  );
+  )
 }

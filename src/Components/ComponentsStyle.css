@@ -6,6 +6,10 @@
     color: #FFFFFF;
     font-size: 15px;
 }
+.whiteFont2{
+    color: #FFFFFF;
+    font-size: 20px;
+}
 
 .logo{
     height: 10vmin;
@@ -19,5 +23,11 @@
 }
 
 .reserveButton{
-    height: 30px;
+    width: 150px;
+}
+
+.katasErrorMsg{
+    background-color: #FFFFFF;
+    border-color: #707070;
+    border-top: transparent;
 }
