@@ -11,5 +11,3 @@ export default function useUser(){
 
     return { userId, setUserId, cohortName, setCohortName, codeWarName, setCodeWarName, isAdmin, setIsAdmin, isDeleted, setIsDeleted, userItems, setUserItems } 
 }
-import {useState} from 'react';
-console.log("sakldajd")
