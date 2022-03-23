@@ -28,23 +28,24 @@ export default function Navigation() {
             {/* remember to change href */}
             <Row>
               <Col md={12} className="d-flex justify-content-center">
-                <Navbar.Brand href="#dashboard">
+                <Navbar.Brand href="dashboard">
                   <img src={CodewarsLogo} className="logo" />
+                  <h1 className="justWhiteFont d-flex justify-content-center">Kata Tracker</h1>
                 </Navbar.Brand>
               </Col>
 
               <Col md={12} >
                 <Nav className="me-auto d-flex justify-content-center">
-                  <Nav.Link href="#home">
+                  <Nav.Link href="dashboard">
                     <span className="whiteFont">Dashboard</span>
                   </Nav.Link>
                   {/* Below only appears for admins */}
                 {exampleUser.IsAdmin == true ?
                 <>
-                  <Nav.Link href="#home">
+                  <Nav.Link href="creataccount">
                     <span className="whiteFont">Create User</span>
                   </Nav.Link>
-                  <Nav.Link href="#home">
+                  <Nav.Link href="createcohort">
                     <span className="whiteFont">Cohorts</span>
                   </Nav.Link>
                 </>
