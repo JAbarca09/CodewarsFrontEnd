@@ -21,6 +21,12 @@
     font-weight: 600;
     width:100px;
 }
+.ButtonStyle2{
+    background-color: #1B78D1;
+    font-weight: 600;
+    width:150px;
+    height: 5vh;
+}
 
 .inputWidth{
     width: 300px;;
@@ -38,4 +44,8 @@
 
 .curveRadius{
     border-radius: 10px;
+}
+
+.whiteFontjustFont{
+    color: #FFFFFF;
 }

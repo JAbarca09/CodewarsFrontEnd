@@ -12,6 +12,7 @@ export default function AdminKatasReserved() {
     IsAdmin: true,
     IsDeleted: false,
   };
+
   //endpoint fetching the cohort by a user's username
   return (
     <Row>
