@@ -1,9 +1,37 @@
-import React from "react";
+import React, {useState, useContext} from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import CodewarsLogo from "../images/codestack-logo.svg";
+import { login, getUserByUsername } from "../Services/DataContext";
+import UserContext from "../Context/UserContext";
 import "./PagesStyle.css";
+import { useNavigate } from "react-router";
+
 
 export default function LoginPage() {
+  let navigate = useNavigate();
+  let {
+    codeWarName,
+    setCodeWarName,
+    userItems,
+    setUserItems,
+  } = useContext(UserContext);
+
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    let userData = {
+      Username: codeWarName,
+      Password: password,
+    };
+    let token = await login(userData);
+    if (token.token != null) {
+      localStorage.setItem("Token", token.token);
+      let userItems1 = await getUserByUsername(codeWarName);
+      setUserItems(userItems1);
+      navigate("/Dashboard");
+    }
+  }; 
+
   return (
     <Container fluid className="backgroundColor d-flex align-items-center justify-content-center">
       <Form>
@@ -21,6 +49,7 @@ export default function LoginPage() {
                 className="inputWidth ms-2"
                 type="email"
                 placeholder="Enter email"
+                onChange={({ target }) => setCodeWarName(target.value)}
               />
             </Form.Group>
           </Col>
@@ -31,11 +60,12 @@ export default function LoginPage() {
                 className="inputWidth ms-2"
                 type="password"
                 placeholder="Password"
+                onChange={({ target }) => setPassword(target.value)}
               />
             </Form.Group>
           </Col>
           <Col md={12} className="d-flex justify-content-center">
-          <Button variant="primary" type="submit" className="ButtonStyle">
+          <Button variant="primary" type="submit" className="ButtonStyle" onClick={handleLogin}>
               Log In
             </Button>
           </Col>
