@@ -93,3 +93,42 @@ async function getUserById(id){
     // console.log(data);
     return data;
 }
+
+//-----------------------------------------------------------------------------------------------
+//These are the enpoints for the Reservation
+
+//Get Reserved Kata By CodeWar Name
+async function getReservedKataByCodeWarName(codeWarName){
+    let res = await fetch("http://localhost:5031/Reservation/GetReservedKataByCodeWarName/"+codeWarName);
+    let data = await res.json();
+    return data;
+}
+
+//Get All Reserved Katas
+async function getAllReservedKatas(){
+    let res = await fetch("http://localhost:5031/Reservation/GetAllReservedKatas/");
+    let data = await res.json();
+    return data;
+}
+
+//Update Reserved Katas
+async function updateReservedKata(updateReservation){
+    let res = await fetch('http://localhost:5031/Reservation/UpdateReservedKata', {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(updateReservation)
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
+//-------------------------------------------------------------------------------------------------
