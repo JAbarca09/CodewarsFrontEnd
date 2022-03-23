@@ -6,22 +6,16 @@ import "./PagesStyle.css";
 export default function LoginPage() {
   return (
     <Container fluid className="backgroundColor d-flex align-items-center justify-content-center">
-
-
-
-        <Row>
-          <Col>
-            
+      <Form>
+        <Row clasName="">
+          <Col md={12} className="d-flex justify-content-center">
+          <Form.Group><img src={CodewarsLogo} className="logo" /></Form.Group>
           </Col>
-        </Row>
-      <Row>
-        <Col>
-          <Form>
-            <span className="d-flex justify-content-center mb-5">
-
-            <Form.Group><img src={CodewarsLogo} className="logo" /></Form.Group>
-            </span>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Col md={12} className="d-flex justify-content-center whiteFontjustFont">
+            <h1>Kata Tracker</h1>
+          </Col>
+          <Col md={12} className="d-flex justify-content-center">
+          <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="whiteFont1 ms-2">Username</Form.Label>
               <Form.Control
                 className="inputWidth ms-2"
@@ -29,8 +23,9 @@ export default function LoginPage() {
                 placeholder="Enter email"
               />
             </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+          </Col>
+          <Col md={12} className="d-flex justify-content-center">
+          <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="whiteFont1 ms-2">Password</Form.Label>
               <Form.Control
                 className="inputWidth ms-2"
@@ -38,14 +33,14 @@ export default function LoginPage() {
                 placeholder="Password"
               />
             </Form.Group>
-            <span className="d-flex justify-content-center mt-4">
-            <Button variant="primary" type="submit" className="ButtonStyle">
+          </Col>
+          <Col md={12} className="d-flex justify-content-center">
+          <Button variant="primary" type="submit" className="ButtonStyle">
               Log In
             </Button>
-            </span>
-          </Form>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Form>
     </Container>
   );
 }

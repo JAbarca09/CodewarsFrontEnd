@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./Pages/LoginPage";
 import Dashboard from "./Pages/Dashboard";
 import AdminDashboard from "./Pages/AdminDashboard";
+import CreateAccount from "./Pages/CreateAccount";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 import useUser from "./Hooks/use-user";
@@ -13,8 +14,9 @@ function App() {
     <UserContext.Provider value={useUser()}>
       <BrowserRouter>
         {/* <LoginPage/> */}
-        <Dashboard/>
+        {/* <Dashboard/> */}
         {/* <AdminDashboard/> */}
+        <CreateAccount/>
 
 
 

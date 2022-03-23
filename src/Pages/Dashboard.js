@@ -13,7 +13,7 @@ let exampleUser = {
   CodeWarName: "Jabarca435",
   Salt: "",
   Hash: "",
-  IsAdmin: true,
+  IsAdmin: false,
   IsDeleted: false,  
 };
 
