@@ -49,3 +49,47 @@ async function login(userInfo){
     console.log(data)
     return data;
 }
+
+//Update User
+async function updateUser(id, codeWarName, cohortName, isAdmin, isDeleted){
+    let res = await fetch('http://localhost:5031/User/UpdateUsername/'+id+'/'+codeWarName+'/'+cohortName+'/'+isAdmin+'/'+isDeleted, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify()
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
+//GetAllUsers
+async function getAllUsers(){
+    let res = await fetch("http://localhost:5031/User/GetAllUsers");
+    let data = await res.json();
+    // console.log(data);
+    return data;
+}
+
+//GetUserByUsername
+async function getUserByUsername(codeWarName){
+    let res = await fetch("http://localhost:5031/User/GetUserByUsername/"+codeWarName);
+    let data = await res.json();
+    // console.log(data);
+    return data;
+}
+
+//GetUserById
+async function getUserById(id){
+    let res = await fetch("http://localhost:5031/User/GetUserByUsername/"+id);
+    let data = await res.json();
+    // console.log(data);
+    return data;
+}
