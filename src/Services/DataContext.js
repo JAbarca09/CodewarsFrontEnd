@@ -134,6 +134,14 @@ async function getUserById(id){
     return data;
 }
 
+//Get Users by Cohort
+async function getUsersByCohortName(cohortName){
+    let res = await fetch("http://localhost:5031/User/GetAllUsersByCohortName/"+cohortName);
+    let data = await res.json();
+    // console.log(data);
+    return data;
+}
+
 //-----------------------------------------------------------------------------------------------
 //These are the enpoints for the Reservation
 
