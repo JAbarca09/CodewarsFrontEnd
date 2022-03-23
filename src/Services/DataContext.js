@@ -106,7 +106,7 @@ async function getReservedKataByCodeWarName(codeWarName){
 
 //Get All Reserved Katas
 async function getAllReservedKatas(){
-    let res = await fetch("http://localhost:5031/Reservation/GetAllReservedKatas/");
+    let res = await fetch("http://localhost:5031/Reservation/GetAllReservedKatas");
     let data = await res.json();
     return data;
 }
@@ -132,3 +132,20 @@ async function updateReservedKata(updateReservation){
 }
 
 //-------------------------------------------------------------------------------------------------
+//These are for Completed Katas
+
+//Get All Completed Katas
+async function getAllCompletedKatas(){
+    let res = await fetch("http://localhost:5031/CompletedKatas/GetAllCompletedKatas");
+    let data = await res.json();
+    return data;
+}
+
+//Get Completed Katas By CodeWar Name
+async function getAllCompletedKatasByCodeWarName(codeWarName){
+    let res = await fetch("http://localhost:5031/CompletedKatas/GetAllCompletedKatas/"+codeWarName);
+    let data = await res.json();
+    return data;
+}
+
+//------------------------------------------------------------------------------------------------------
