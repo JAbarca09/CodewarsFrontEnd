@@ -260,11 +260,20 @@ async function getCohortById(id){
     return data;
 }
 
+//Get a kata by a slug
+async function getKataBySlug(slug){
+    let res = await fetch(`https://www.codewars.com/api/v1/code-challenges/${slug}`);
+    let data = await res.json();
+    return data;
+}
+
 export{ checkToken, createAccount, login,
     updateUser, giveUserAdmin, permanentlyDeleteUser,
     getAllUsers, getUserByUsername, getUserById,
     getUsersByCohortName, getReservedKataByCodeWarName,
     getAllReservedKatas, updateReservedKata, getAllCompletedKatas,
     getAllCompletedKatasByCodeWarName, createCohort, updateCohort,
-    getCohortByCohortName, getCohortByCodeWarName, getCohortById
+    getCohortByCohortName, getCohortByCodeWarName, getCohortById,
+
+    getKataBySlug
 }
