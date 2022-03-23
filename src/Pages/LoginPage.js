@@ -23,7 +23,7 @@ export default function LoginPage() {
       CodeWarName: codeWarName,
       Password: password,
     };
-
+    console.log(userData);
     let token = await login(userData);
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
@@ -68,7 +68,7 @@ export default function LoginPage() {
             </Form.Group>
           </Col>
           <Col md={12} className="d-flex justify-content-center">
-          <Button variant="primary" type="submit" className="ButtonStyle" onClick={handleLogin}>
+          <Button variant="primary" type="button" className="ButtonStyle" onClick={handleLogin}>
               Log In
             </Button>
           </Col>
