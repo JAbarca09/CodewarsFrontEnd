@@ -25,7 +25,6 @@ export default function LoginPage() {
       CodeWarName: codeWarName,
       Password: password,
     };
-    console.log(userData);
     let token = await login(userData);
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
@@ -33,7 +32,6 @@ export default function LoginPage() {
       setUserItems(userItems1);
       navigate("/dashboard");
     }else{
-      console.log("Not Signed In");
       toggleShowA();
     }
   }; 
