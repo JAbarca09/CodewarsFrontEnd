@@ -16,11 +16,11 @@ import { useNavigate } from "react-router";
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
 export default function AdminCreateCohort() {
-  let userData = useContext(UserContext)
+  
   let navigate = useNavigate();
-  // let {
-  //   userItems
-  // } = useContext(UserContext);
+  let {
+    userItems
+  } = useContext(UserContext);
 
   const [selectCohort, setSelectCohort] = useState("");
 
@@ -42,7 +42,7 @@ export default function AdminCreateCohort() {
       navigate("/login");
     } else {
       
-      console.log(userData.userItems.isAdmin);
+      console.log(userItems.isAdmin);
       
       
     }
