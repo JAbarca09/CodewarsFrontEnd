@@ -248,7 +248,7 @@ async function getCohortByCohortName(cohortName){
 
 //Get Cohort By CodeWar Name
 async function getCohortByCodeWarName(codewarName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortByCodeWarName/"+codewarName);
+    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortByCodeWarName/${codewarName}`);
     let data = await res.json();
     return data;
 }
