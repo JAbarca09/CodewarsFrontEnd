@@ -113,19 +113,25 @@ export default function AdminCreateCohort() {
                 {
                   displayUsers.map((user, id) => {
                     return(
-                      <tr className="text-center"  key={id}>
+                      <>
+                      {
+                        !user.isDeleted ? (
+                          <tr className="text-center"  key={id}>
                         <td>{id+1}</td>
                         <td>{user.codeWarName}</td>
                         {
                           user.isAdmin ? <td>Admin</td> : <td>Student</td>
                         }
                         <td>
-                          <Button variant="success">Change Role</Button>
+                          <Button variant="success" onClick={handleChangeRole}>Change Role</Button>
                         </td>
                         <td>
-                          <Button variant="danger">Delete User</Button>
+                          <Button variant="danger" onClick={handleDelete}>Delete User</Button>
                         </td>
                       </tr>
+                        ) : null
+                      } 
+                      </>
                     )
                   })
                 }
