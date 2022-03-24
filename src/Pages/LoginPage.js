@@ -29,6 +29,7 @@ export default function LoginPage() {
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
       let userItems1 = await getUserByUsername(codeWarName);
+      console.log(userItems1);
       setUserItems(userItems1);
       navigate("/dashboard");
     }else{
@@ -77,7 +78,7 @@ export default function LoginPage() {
         </Row>
       </Form>
     </Container>
-    <ToastContainer position="top-center" >
+    <ToastContainer position="top-center" className="mt-5">
     <Toast show={showA} onClose={toggleShowA}>
       <Toast.Header >
         <strong className="me-auto">Unable to login</strong>

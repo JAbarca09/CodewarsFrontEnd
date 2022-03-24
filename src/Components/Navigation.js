@@ -8,6 +8,7 @@ import {
 import React from "react";
 import "./ComponentsStyle.css";
 import CodewarsLogo from "../images/codestack-logo.svg";
+import { Link } from "react-router-dom";
 
 let exampleUser = {
   Id: 0,
@@ -36,16 +37,16 @@ export default function Navigation() {
 
               <Col md={12} >
                 <Nav className="me-auto d-flex justify-content-center">
-                  <Nav.Link href="dashboard">
+                  <Nav.Link as={Link} to="/dashboard">
                     <span className="whiteFont">Dashboard</span>
                   </Nav.Link>
                   {/* Below only appears for admins */}
                 {exampleUser.IsAdmin == true ?
                 <>
-                  <Nav.Link href="creataccount">
+                  <Nav.Link as={Link} to="/creataccount">
                     <span className="whiteFont">Create User</span>
                   </Nav.Link>
-                  <Nav.Link href="createcohort">
+                  <Nav.Link as={Link} to="/createcohort">
                     <span className="whiteFont">Cohorts</span>
                   </Nav.Link>
                 </>
