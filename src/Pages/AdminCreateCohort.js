@@ -12,7 +12,7 @@ import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
 import { getUserByUsername, checkToken, updateCohort} from "../Services/DataContext";
 import { useNavigate } from "react-router";
-import { getUsersByCohortName, updateUser, getallCohorts } from "../Services/DataContext";
+import { getUsersByCohortName, updateUser, getallCohorts, getCohortByCohortName } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
@@ -37,8 +37,13 @@ export default function AdminCreateCohort() {
   const handleClose = () => setShow(false);
   
   
-  const handleShow = () => setShow(true);
-  
+  const handleShow = async () => {
+    setShow(true);
+    let displayRank = await getCohortByCohortName(selectCohort);
+    console.log(displayRank[0].cohortLevelOfDifficulty)
+    setKataDifficulty(displayRank[0].cohortLevelOfDifficulty);
+
+  }
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
   
