@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Container,
   Row,
@@ -9,10 +9,19 @@ import {
   Table,
 } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
+import UserContext from "../Context/UserContext";
+import { getUserByUsername, checkToken } from "../Services/DataContext";
+import { useNavigate } from "react-router";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
 export default function AdminCreateCohort() {
+  let userData = useContext(UserContext)
+  let navigate = useNavigate();
+  // let {
+  //   userItems
+  // } = useContext(UserContext);
+
   const [selectCohort, setSelectCohort] = useState("");
 
   const [show, setShow] = useState(false);
@@ -27,6 +36,17 @@ export default function AdminCreateCohort() {
   const handleCohortSelect = (e) => {
       setSelectCohort(e.target.value);
   }
+
+  useEffect(async () => {
+    if (!checkToken()) {
+      navigate("/login");
+    } else {
+      
+      console.log(userData.userItems.isAdmin);
+      
+      
+    }
+  }, []);
 
   return (
     <>

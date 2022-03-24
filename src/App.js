@@ -26,10 +26,10 @@ function App() {
 
 
         <Routes>
-          <Route path="login" element={<LoginPage/>} key="login"/>
-          <Route path="dashboard" element={<Dashboard/>} key="dashboard"/>
-          <Route path="creataccount" element={<CreateAccount/>} key="creataccount"/>
-          <Route path="createcohort" element={<AdminCreateCohort/>} key="createcohort"/>
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/creataccount" element={<CreateAccount/>} />
+          <Route path="/createcohort" element={<AdminCreateCohort/>} />
         </Routes>
       </BrowserRouter>
       </ReserveContext.Provider>
