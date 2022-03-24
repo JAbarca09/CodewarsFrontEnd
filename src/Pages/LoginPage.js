@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Toast, ToastContainer } from "react-bootstrap";
 import CodewarsLogo from "../images/codestack-logo.svg";
 import { login, getUserByUsername } from "../Services/DataContext";
 import UserContext from "../Context/UserContext";
@@ -17,6 +17,8 @@ export default function LoginPage() {
   } = useContext(UserContext);
 
   const [password, setPassword] = useState("");
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
 
   const handleLogin = async () => {
     let userData = {
@@ -32,10 +34,12 @@ export default function LoginPage() {
       navigate("/dashboard");
     }else{
       console.log("Not Signed In");
+      toggleShowA();
     }
   }; 
 
   return (
+    <>
     <Container fluid className="backgroundColor d-flex align-items-center justify-content-center">
       <Form>
         <Row className="">
@@ -75,5 +79,14 @@ export default function LoginPage() {
         </Row>
       </Form>
     </Container>
+    <ToastContainer position="top-center" >
+    <Toast show={showA} onClose={toggleShowA}>
+      <Toast.Header >
+        <strong className="me-auto">Unable to login</strong>
+      </Toast.Header>
+      <Toast.Body>Username and/or password is incorrect. Please try again.</Toast.Body>
+    </Toast>
+  </ToastContainer>
+  </>
   );
 }
