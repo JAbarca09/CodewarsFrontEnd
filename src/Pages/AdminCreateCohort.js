@@ -42,9 +42,9 @@ export default function AdminCreateCohort() {
       navigate("/login");
     } else {
       
-      console.log(userItems.isAdmin);
-      
-      
+      if(!userItems.isAdmin){
+        navigate("/dashboard")
+      };
     }
   }, []);
 
@@ -56,9 +56,9 @@ export default function AdminCreateCohort() {
           <Col md={4}>
             <Form.Select onChange={handleCohortSelect} aria-label="Default select example">
               <option>Select a Cohort</option>
-              <option value="Cohort One">Cohort One</option>
-              <option value="Cohort Two">Cohort Two</option>
-              <option value="Cohort Three">Cohort Three</option>
+              <option value="Season 1">Cohort One</option>
+              <option value="Season 2">Cohort Two</option>
+              <option value="Season 3">Cohort Three</option>
             </Form.Select>
           </Col>
           <Col md={4} className="d-flex justify-content-center">
