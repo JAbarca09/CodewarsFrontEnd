@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Row, Col, Table, Button } from "react-bootstrap";
 import "./ComponentsStyle.css";
+import UserContext from "../Context/UserContext";
 
 export default function AdminKatasReserved() {
   let exampleUser = {
@@ -12,6 +13,8 @@ export default function AdminKatasReserved() {
     IsAdmin: true,
     IsDeleted: false,
   };
+
+  let { codeWarName, isAdmin } = useContext(UserContext);
 
   //endpoint fetching the cohort by a user's username
   return (
