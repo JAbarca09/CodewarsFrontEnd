@@ -12,6 +12,7 @@ import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
 import { getUserByUsername, checkToken } from "../Services/DataContext";
 import { useNavigate } from "react-router";
+import { getUsersByCohortName } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
@@ -23,6 +24,7 @@ export default function AdminCreateCohort() {
   } = useContext(UserContext);
 
   const [selectCohort, setSelectCohort] = useState("");
+  const [displayUsers, setDisplayUsers] = useState([]);
 
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -36,11 +38,8 @@ export default function AdminCreateCohort() {
   const handleCohortSelect = async (e) => {
     setSelectCohort(e.target.value);
     let cohort = e.target.value;
-    console.log(cohort);
-    if(cohort == "Season 1"){
-
-    }
-    
+    let seasonUsers = await getUsersByCohortName(cohort);
+    setDisplayUsers(seasonUsers);
   }
 
   useEffect(async () => {
@@ -92,17 +91,26 @@ export default function AdminCreateCohort() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="text-center">
-                  <td>1</td>
-                  <td>Jabarca435</td>
-                  <td>student</td>
-                  <td>
-                    <Button variant="success">Change Role</Button>
-                  </td>
-                  <td>
-                    <Button variant="danger">Delete User</Button>
-                  </td>
-                </tr>
+                {
+                  displayUsers.map((user, id) => {
+                    return(
+                      <tr className="text-center"  key={id}>
+                        <td>{id}</td>
+                        <td>{user.codeWarName}</td>
+                        {
+                          user.isAdmin ? <td>Admin</td> : <td>Student</td>
+                        }
+                        <td>
+                          <Button variant="success">Change Role</Button>
+                        </td>
+                        <td>
+                          <Button variant="danger">Delete User</Button>
+                        </td>
+                      </tr>
+                    )
+                  })
+                }
+                
               </tbody>
             </Table>
           </Col>
