@@ -25,6 +25,7 @@ export default function AdminCreateCohort() {
 
   const [selectCohort, setSelectCohort] = useState("");
   const [displayUsers, setDisplayUsers] = useState([]);
+  const [editBool, setEditBool] = useState(false);
 
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -95,7 +96,7 @@ export default function AdminCreateCohort() {
                   displayUsers.map((user, id) => {
                     return(
                       <tr className="text-center"  key={id}>
-                        <td>{id}</td>
+                        <td>{id+1}</td>
                         <td>{user.codeWarName}</td>
                         {
                           user.isAdmin ? <td>Admin</td> : <td>Student</td>
@@ -117,11 +118,11 @@ export default function AdminCreateCohort() {
         </Row>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Create a Cohort</Modal.Title>
+            <Modal.Title>Edit a Cohort</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <>
-              <Form.Label htmlFor="CohortName">Enter a Cohort Name</Form.Label>
+              <Form.Label htmlFor="CohortName">Edit Cohort Name</Form.Label>
               <Form.Control
                 type="text"
                 id="EnterCohortName"
@@ -186,7 +187,7 @@ export default function AdminCreateCohort() {
               Close
             </Button>
             <Button variant="primary" onClick={handleClose2}>
-              Save Updates To Cohort
+              Create Cohort
             </Button>
           </Modal.Footer>
         </Modal>
