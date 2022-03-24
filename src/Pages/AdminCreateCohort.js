@@ -12,7 +12,7 @@ import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
 import { getUserByUsername, checkToken } from "../Services/DataContext";
 import { useNavigate } from "react-router";
-import { getUsersByCohortName } from "../Services/DataContext";
+import { getUsersByCohortName, updateUser } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
@@ -53,6 +53,24 @@ export default function AdminCreateCohort() {
       };
     }
   }, []);
+
+  const handleChangeRole = async (item) => {
+    item.isAdmin = !item.isAdmin;
+    let result = await  updateUser(item.id, item.codeWarName, item.cohortName, item.isAdmin, item.isDeleted);
+    if(result){
+      let updatedUsers = await getUsersByCohortName(item.cohortName);
+      setDisplayUsers(updatedUsers);
+    }
+  } 
+
+  const handleDelete = async (item) => {
+    item.isDeleted = !item.isDeleted;
+    let result = await  updateUser(item.id, item.codeWarName, item.cohortName, item.isAdmin, item.isDeleted);
+    if(result){
+      let updatedUsers = await getUsersByCohortName(item.cohortName);
+      setDisplayUsers(updatedUsers);
+    }
+  }
 
   return (
     <>
