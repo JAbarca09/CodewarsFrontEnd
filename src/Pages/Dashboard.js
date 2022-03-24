@@ -5,24 +5,9 @@ import KatasCompleted from "../Components/KatasCompleted";
 import AdminDashboard from "./AdminDashboard";
 import UserContext from "../Context/UserContext";
 import ReserveContext from "../Context/ReserveContext";
-
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Table,
-  Toast,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Table, Toast, } from "react-bootstrap";
 import "./PagesStyle.css";
-import {
-  getKataBySlug,
-  updateReservedKata,
-  getAllReservedKatas,
-  getAllCompletedKatas,
-  getAllCompletedKatasByCodeWarName
-} from "../Services/DataContext";
+import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName} from "../Services/DataContext";
 
 let exampleUser = {
   Id: 0,
@@ -35,73 +20,76 @@ let exampleUser = {
 };
 
 export default function Dashboard() {
-
-let {codeWarName, isAdmin, cohortName} = useContext(UserContext);
-let {searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug} = useContext(ReserveContext);
+  let { codeWarName, isAdmin, cohortName } = useContext(UserContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug } =
+    useContext(ReserveContext);
 
   useEffect(async () => {
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
-  }, [])
+    let userCohort = await getCohortByCodeWarName("admin");
+    setCohort(userCohort);
+    console.log(Number(userCohort.cohortLevelOfDifficulty[0]));
+  }, []);
 
   const [showA, setShowA] = useState(true);
   const toggleShowA = () => setShowA(!showA);
+  const [match, setMatch] = useState(false);
 
-  let match = false;
+  const [cohort, setCohort] = useState({});
 
   //button "Search"
   const handleSearch = async () => {
     let allCompletedKata = await getAllCompletedKatas();
     let allReservedKata = await getAllReservedKatas();
 
-    console.log(allReservedKata);
-
     let theKataSlug = TurnNameToSlugFormat(searchKata);
     setKataSlug(theKataSlug);
     let fetchedKata = await getKataBySlug(theKataSlug);
     setKata(fetchedKata);
 
+    let fetchedKataRank = Number(fetchedKata.rank.name[0]);
+
     //how many katas can the user reserve
     let allReservedKataNames = [];
     let allCompletedKataNames = [];
-    for(let i = 0; i<allReservedKata.length; i++){
+    for (let i = 0; i < allReservedKata.length; i++) {
       allReservedKataNames.push(allReservedKata[i].kataName);
     }
 
-    for(let j = 0; j<allCompletedKata.length; j++){
+    for (let j = 0; j < allCompletedKata.length; j++) {
       allCompletedKataNames.push(allCompletedKata[j].kataName);
     }
-    // console.log(allReservedKataNames);
-    console.log(allCompletedKataNames);
-    console.log(allReservedKataNames.includes(kata.name));
-    console.log(kata.name);
 
-    if(allReservedKataNames.includes(kata.name) || allCompletedKataNames.includes(kata.name) || allReservedKata.length == 3){
-      // setShowA(!showA);
+    console.log(typeof Number(cohort.corhortLevelOfDifficulty[0]));
+
+    //refer to the fetched kata instead thehehe
+    //if the cohort level (the user) is higher(8) than the kata level (6), don't let them reserve
+    // || allReservedKata.length >= 3
+    if ( allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || Number(cohort.cohortLevelOfDifficulty[0]) <= fetchedKataRank) {
       toggleShowA();
-      match = true;
-      console.log("THere is a match")
-    }else{
-      console.log("No match")
-      match = false;
+      setMatch(true);
+    } else {
+      setMatch(false);
     }
   };
 
   //button "reserve"
-  const handleReserve = async () => {  
-      let kataLanguages = kata.languages;
-      let kataLanguagesString = kataLanguages.join(", ");
-      const userReservedKata = {
-        Id: 0,
-        CodeWarName: "Admin",
-        KataName: kata.name,
-        KataSlug: kata.slug,
-        KataLink: kata.url,
-        KataLanguage: kataLanguagesString,
-        IsCompleted: false,
-        IsDeleted: false,
-      };
-      let results = await updateReservedKata(userReservedKata);
-      console.log(results);
+  const handleReserve = async () => {
+    let kataLanguages = kata.languages;
+    let kataLanguagesString = kataLanguages.join(", ");
+    const userReservedKata = {
+      Id: 0,
+      KataRank: kata.rank.name,
+      CodeWarName: codeWarName,
+      KataName: kata.name,
+      KataSlug: kata.slug,
+      KataLink: kata.url,
+      KataLanguage: kataLanguagesString,
+      IsCompleted: false,
+      IsDeleted: false,
+    };
+    let results = await updateReservedKata(userReservedKata);
+    console.log(results);
   };
 
   //only works for words and spaces not special characters and ? / . ,
@@ -131,9 +119,15 @@ let {searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug} = useConte
           <Navigation />
           <Container fluid className="backgroundColor">
             <Row className="pt-4">
-              <Col className="d-flex justify-content-center">
+              <Col md={12} className="d-flex justify-content-center">
                 {/* Cohort displayed based on user */}
-                <h3 className="whiteFont2">Cohort: Season 4, 8 Kyu</h3>
+                <h3 className="whiteFont2">Cohort: {cohort.cohortName}</h3>
+              </Col>
+            </Row>
+            <Row className="">
+              <Col md={12} className="d-flex justify-content-center">
+                {/* Cohort displayed based on user */}
+                <h3 className="whiteFont2">Level: {cohort.cohortLevelOfDifficulty}</h3>
               </Col>
             </Row>
             <Container>

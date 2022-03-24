@@ -46,7 +46,7 @@ export default function Navigation() {
                     <span className="whiteFont">Dashboard</span>
                   </Nav.Link>
                   {/* Below only appears for admins */}
-                {exampleUser.IsAdmin == true ?
+                {isAdmin == true ?
                 <>
                   <Nav.Link as={Link} to="/creataccount">
                     <span className="whiteFont">Create User</span>
