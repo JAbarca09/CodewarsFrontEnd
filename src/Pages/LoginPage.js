@@ -79,7 +79,7 @@ export default function LoginPage() {
       </Form>
     </Container>
     <ToastContainer position="top-center" className="mt-5">
-    <Toast show={showA} onClose={toggleShowA}>
+    <Toast show={showA} onClose={toggleShowA} delay={5000} autohide>
       <Toast.Header >
         <strong className="me-auto">Unable to login</strong>
       </Toast.Header>

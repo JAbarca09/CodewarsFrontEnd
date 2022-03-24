@@ -33,8 +33,14 @@ export default function AdminCreateCohort() {
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
-  const handleCohortSelect = (e) => {
-      setSelectCohort(e.target.value);
+  const handleCohortSelect = async (e) => {
+    setSelectCohort(e.target.value);
+    let cohort = e.target.value;
+    console.log(cohort);
+    if(cohort == "Season 1"){
+
+    }
+    
   }
 
   useEffect(async () => {
