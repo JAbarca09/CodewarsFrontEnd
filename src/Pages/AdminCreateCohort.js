@@ -41,6 +41,7 @@ export default function AdminCreateCohort() {
     let cohort = e.target.value;
     let seasonUsers = await getUsersByCohortName(cohort);
     setDisplayUsers(seasonUsers);
+    console.log(seasonUsers);
   }
 
   useEffect(async () => {
@@ -112,10 +113,10 @@ export default function AdminCreateCohort() {
               <tbody>
                 {
                   displayUsers.map((user, id) => {
-                    return(
+                    return !user.isDeleted ? (
                       <>
                       {
-                        !user.isDeleted ? (
+                         
                           <tr className="text-center"  key={id}>
                         <td>{id+1}</td>
                         <td>{user.codeWarName}</td>
@@ -123,16 +124,16 @@ export default function AdminCreateCohort() {
                           user.isAdmin ? <td>Admin</td> : <td>Student</td>
                         }
                         <td>
-                          <Button variant="success" onClick={handleChangeRole}>Change Role</Button>
+                          <Button variant="success" onClick={() => handleChangeRole(user)}>Change Role</Button>
                         </td>
                         <td>
-                          <Button variant="danger" onClick={handleDelete}>Delete User</Button>
+                          <Button variant="danger" onClick={() => handleDelete(user)}>Delete User</Button>
                         </td>
                       </tr>
-                        ) : null
+                         
                       } 
                       </>
-                    )
+                    ) : null
                   })
                 }
                 
