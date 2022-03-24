@@ -20,7 +20,9 @@ export default function AdminCreateCohort() {
   
   let navigate = useNavigate();
   let {
-    userItems
+    userItems,
+    kataDifficulty,
+    setKataDifficulty
   } = useContext(UserContext);
 
   const [selectCohort, setSelectCohort] = useState("");
@@ -143,7 +145,7 @@ export default function AdminCreateCohort() {
         </Row>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit a Cohort</Modal.Title>
+            <Modal.Title>Edit {selectCohort}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <>
@@ -153,11 +155,13 @@ export default function AdminCreateCohort() {
                 id="EnterCohortName"
                 placeholder="Enter Cohort"
                 aria-describedby="CohortName"
+                onChange={(e) => setSelectCohort(e.target.value)}
+                value={selectCohort}
               />
             </>
           </Modal.Body>
           <Modal.Body>
-            <Form.Select aria-label="Default select example">
+            <Form.Select aria-label="Default select example" onChange={(e) => setKataDifficulty(e.target.value)} value={kataDifficulty}>
               <option>Select Cohort Difficulty</option>
               <option value="8">8 Kyu</option>
               <option value="7">7 Kyu</option>
