@@ -40,11 +40,11 @@ async function login(userInfo){
         body: JSON.stringify(userInfo)
     });
 
-    if(!res.ok)
-    {
-        const message = `An error has occured ${res.status}`
-        throw new Error(message);
-    }
+    // if(!res.ok)
+    // {
+    //     const message = `An error has occured ${res.status}`
+    //     throw new Error(message);
+    // }
     let data = await res.json();
     console.log(data)
     return data;
