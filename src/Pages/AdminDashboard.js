@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import KatasReserved from "../Components/KatasReserved";
-import SearchKatas from "../Components/SearchKatas";
 import KatasCompleted from "../Components/KatasCompleted";
 import AdminKatasReserved from '../Components/AdminKatasReserved';
 

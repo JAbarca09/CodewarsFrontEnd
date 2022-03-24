@@ -5,9 +5,10 @@ import {
   Row,
   Col
 } from "react-bootstrap";
-import React from "react";
+import React, {useContext} from "react";
 import "./ComponentsStyle.css";
 import CodewarsLogo from "../images/codestack-logo.svg";
+import UserContext from "../Context/UserContext";
 
 let exampleUser = {
   Id: 0,
@@ -20,6 +21,10 @@ let exampleUser = {
 };
 
 export default function Navigation() {
+
+  let {codeWarName, isAdmin, cohortName} = useContext(UserContext);
+
+
   return (
     
       <Container fluid className="px-0">

@@ -8,11 +8,14 @@ import CreateAccount from "./Pages/CreateAccount";
 import AdminCreateCohort from "./Pages/AdminCreateCohort";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import UserContext from "./Context/UserContext";
+import ReserveContext from "./Context/ReserveContext";
 import useUser from "./Hooks/use-user";
+import useReserve from "./Hooks/use-reserve";
 
 function App() {
   return (
     <UserContext.Provider value={useUser()}>
+      <ReserveContext.Provider value={useReserve()}>
       <BrowserRouter>
         {/* <LoginPage/> */}
         {/* <Dashboard/> */}
@@ -29,6 +32,7 @@ function App() {
           <Route path="createcohort" element={<AdminCreateCohort/>} key="createcohort"/>
         </Routes>
       </BrowserRouter>
+      </ReserveContext.Provider>
     </UserContext.Provider>
   );
 }

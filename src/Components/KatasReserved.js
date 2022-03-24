@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Row, Col, Table } from "react-bootstrap";
 import "./ComponentsStyle.css";
+import ReserveContext from "../Context/ReserveContext";
+import UserContext from "../Context/UserContext";
+import {getReservedKataByCodeWarName} from "../Services/DataContext";
 
 let exampleUser = {
   Id: 0,
@@ -13,6 +16,17 @@ let exampleUser = {
 };
 
 export default function KatasReserved() {
+  
+  const [displayReservebyUser, setDisplayReservebyUser] = useState(0);
+
+  let {codeWarName} = useContext(UserContext);
+  let {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug} = useContext(ReserveContext);
+
+  useEffect(async () => {
+    let userRerservedKatas = await getReservedKataByCodeWarName(codeWarName);
+  }, [])
+
+
   return (
     <>
       <Row>
