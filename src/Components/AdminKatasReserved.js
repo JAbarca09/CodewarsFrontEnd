@@ -14,7 +14,7 @@ export default function AdminKatasReserved() {
     IsDeleted: false,
   };
 
-  let { codeWarName, isAdmin } = useContext(UserContext);
+  let { codeWarName, cohortName, isAdmin } = useContext(UserContext);
 
   //endpoint fetching the cohort by a user's username
   return (
@@ -22,11 +22,11 @@ export default function AdminKatasReserved() {
       {/* Replaced x with numbers of reserved by users */}
       <Col md={6} className="px-0">
         <p className="whiteFont">
-          Katas Reserved by {exampleUser.CodeWarName} : x/3{" "}
+          Katas Reserved by {codeWarName} : x/3{" "}
         </p>
       </Col>
       <Col md={6}>
-          <p className="mt-1 whiteFont">Cohort: {exampleUser.CohortName}, Level: x</p>
+          <p className="mt-1 whiteFont">Cohort: {cohortName}, Level: x</p>
       </Col>
 
       {/* replace Name of Kata and Kyu level can be accessed through pulled object */}

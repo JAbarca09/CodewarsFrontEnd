@@ -147,7 +147,7 @@ async function getUsersByCohortName(cohortName){
 
 //Get Reserved Kata By CodeWar Name
 async function getReservedKataByCodeWarName(codeWarName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Reservation/GetReservedKataByCodeWarName/"+codeWarName);
+    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/Reservation/GetReservedKataByCodeWarName/${codeWarName}`);
     let data = await res.json();
     return data;
 }
