@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
-import { getUserByUsername, checkToken } from "../Services/DataContext";
+import { getUserByUsername, checkToken, updateCohort } from "../Services/DataContext";
 import { useNavigate } from "react-router";
 import { getUsersByCohortName } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,24 +24,33 @@ export default function AdminCreateCohort() {
   } = useContext(UserContext);
 
   const [selectCohort, setSelectCohort] = useState("");
+  const [selectCohortRank, setSelectCohortRank] = useState("");
   const [displayUsers, setDisplayUsers] = useState([]);
-
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-
+  
   const handleClose = () => setShow(false);
+  
+  
   const handleShow = () => setShow(true);
-
+  
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-
+  
   const handleCohortSelect = async (e) => {
     setSelectCohort(e.target.value);
     let cohort = e.target.value;
     let seasonUsers = await getUsersByCohortName(cohort);
     setDisplayUsers(seasonUsers);
   }
-
+  
+  const [cohortRank, setCohortRank] = useState("");
+  const handleCohortRank = async (e) => {
+    setSelectCohortRank(e.target.value);
+    setCohortRank(e.target.value);
+  }
+  const [cohortNames, setCohortNames] = useState([]);
+  
   useEffect(async () => {
     if (!checkToken()) {
       navigate("/login");
@@ -52,6 +61,21 @@ export default function AdminCreateCohort() {
       };
     }
   }, []);
+
+
+  const handleCohort = async () => {  
+    setShow(false);
+    const AdminMadeCohort = {
+      Id: 0,
+      CohortName: cohortNames,
+      CodeWarName: "admin",
+      CohortLevelOfDifficulty: cohortRank,
+      DateCreated: new Date(),
+      IsArchived: false,
+    };
+    let results = await updateCohort(AdminMadeCohort);
+    console.log(results);
+};
 
   return (
     <>
@@ -127,11 +151,12 @@ export default function AdminCreateCohort() {
                 id="EnterCohortName"
                 placeholder="Enter Cohort"
                 aria-describedby="CohortName"
+                onChange={({ target }) => setCohortNames(target.value)}
               />
             </>
           </Modal.Body>
           <Modal.Body>
-            <Form.Select aria-label="Default select example">
+            <Form.Select aria-label="Default select example" onChange={handleCohortRank}>
               <option>Select Cohort Difficulty</option>
               <option value="8">8 Kyu</option>
               <option value="7">7 Kyu</option>
@@ -147,7 +172,7 @@ export default function AdminCreateCohort() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleCohort}>
               Save Changes
             </Button>
           </Modal.Footer>
