@@ -267,13 +267,19 @@ async function getKataBySlug(slug){
     return data;
 }
 
+//Get all cohorts
+async function getallCohorts(){
+    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetAllCohorts");
+    let data = await res.json();
+    return data;
+}
+
 export{ checkToken, createAccount, login,
     updateUser, giveUserAdmin, permanentlyDeleteUser,
     getAllUsers, getUserByUsername, getUserById,
     getUsersByCohortName, getReservedKataByCodeWarName,
     getAllReservedKatas, updateReservedKata, getAllCompletedKatas,
     getAllCompletedKatasByCodeWarName, createCohort, updateCohort,
-    getCohortByCohortName, getCohortByCodeWarName, getCohortById,
-
+    getCohortByCohortName, getCohortByCodeWarName, getCohortById,getallCohorts,
     getKataBySlug
 }

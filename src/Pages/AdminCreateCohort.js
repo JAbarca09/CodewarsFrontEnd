@@ -10,9 +10,9 @@ import {
 } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
-import { getUserByUsername, checkToken, updateCohort } from "../Services/DataContext";
+import { getUserByUsername, checkToken, updateCohort} from "../Services/DataContext";
 import { useNavigate } from "react-router";
-import { getUsersByCohortName, updateUser } from "../Services/DataContext";
+import { getUsersByCohortName, updateUser, getallCohorts } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
@@ -29,6 +29,7 @@ export default function AdminCreateCohort() {
   const [selectCohortRank, setSelectCohortRank] = useState("");
   const [displayUsers, setDisplayUsers] = useState([]);
   const [editBool, setEditBool] = useState(false);
+  const [allCohorts, setAllCohorts] = useState([]);
 
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -54,7 +55,7 @@ export default function AdminCreateCohort() {
     setSelectCohortRank(e.target.value);
     setCohortRank(e.target.value);
   }
-  const [cohortNames, setCohortNames] = useState([]);
+  const [cohortNames, setCohortNames] = useState("");
   
   useEffect(async () => {
     if (!checkToken()) {
@@ -64,6 +65,8 @@ export default function AdminCreateCohort() {
       if(!userItems.isAdmin){
         navigate("/dashboard")
       };
+      let displayCohorts = await getallCohorts();
+      setAllCohorts(displayCohorts);
     }
   }, []);
 
@@ -73,7 +76,7 @@ export default function AdminCreateCohort() {
     const AdminMadeCohort = {
       Id: 0,
       CohortName: cohortNames,
-      CodeWarName: "admin",
+      CodeWarName: userItems.codeWarName,
       CohortLevelOfDifficulty: cohortRank,
       DateCreated: new Date(),
       IsArchived: false,
@@ -81,6 +84,7 @@ export default function AdminCreateCohort() {
     let results = await updateCohort(AdminMadeCohort);
     console.log(results);
 };
+
   const handleChangeRole = async (item) => {
     item.isAdmin = !item.isAdmin;
     let result = await  updateUser(item.id, item.codeWarName, item.cohortName, item.isAdmin, item.isDeleted);
@@ -107,9 +111,15 @@ export default function AdminCreateCohort() {
           <Col md={4}>
             <Form.Select onChange={handleCohortSelect} aria-label="Default select example">
               <option>Select a Cohort</option>
-              <option value="Season 1">Cohort One</option>
-              <option value="Season 2">Cohort Two</option>
-              <option value="Season 3">Cohort Three</option>
+              {
+                  allCohorts.map((cohort, id) => {
+                    return (
+                      <>
+                        <option value={cohort.cohortName}>{cohort.cohortName}</option>
+                      </>
+                    ) 
+                  })
+                }
             </Form.Select>
           </Col>
           <Col md={4} className="d-flex justify-content-center">
@@ -219,11 +229,12 @@ export default function AdminCreateCohort() {
                 id="EnterCohortName"
                 placeholder="Enter Cohort"
                 aria-describedby="CohortName"
+                onChange={(e) => setCohortNames(e.target.value)}
               />
             </>
           </Modal.Body>
           <Modal.Body>
-            <Form.Select aria-label="Default select example">
+            <Form.Select aria-label="Default select example" onChange={handleCohortRank}>
               <option>Select Cohort Difficulty</option>
               <option value="8">8 Kyu</option>
               <option value="7">7 Kyu</option>
@@ -239,7 +250,7 @@ export default function AdminCreateCohort() {
             <Button variant="secondary" onClick={handleClose2}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose2}>
+            <Button variant="primary" onClick={handleCohort}>
               Create Cohort
             </Button>
           </Modal.Footer>
