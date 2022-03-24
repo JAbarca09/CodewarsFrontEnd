@@ -37,7 +37,7 @@ let exampleUser = {
 export default function Dashboard() {
 
 let {codeWarName, isAdmin, cohortName} = useContext(UserContext);
-let {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug} = useContext(ReserveContext);
+let {searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug} = useContext(ReserveContext);
 
   useEffect(async () => {
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
@@ -45,10 +45,6 @@ let {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug} = useContex
 
   const [showA, setShowA] = useState(true);
   const toggleShowA = () => setShowA(!showA);
-  
-  // const [searchKata, setSearchKata] = useState("");
-  // const [kata, setKata] = useState("");
-  // const [kataSlug, setKataSlug] = useState("");
 
   let match = false;
 
@@ -76,11 +72,16 @@ let {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug} = useContex
     }
     // console.log(allReservedKataNames);
     console.log(allCompletedKataNames);
+    console.log(allReservedKataNames.includes(kata.name));
+    console.log(kata.name);
 
     if(allReservedKataNames.includes(kata.name) || allCompletedKataNames.includes(kata.name) || allReservedKata.length == 3){
-      setShowA(showA);
+      // setShowA(!showA);
+      toggleShowA();
       match = true;
+      console.log("THere is a match")
     }else{
+      console.log("No match")
       match = false;
     }
   };
