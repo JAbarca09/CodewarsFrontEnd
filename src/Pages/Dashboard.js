@@ -85,8 +85,6 @@ export default function Dashboard() {
       setMatch(false);
       let reservedKatas = await getReservedKataByCodeWarName(userItems.codeWarName);
       setDisplayReservebyUser(reservedKatas.filter(kata => kata.isCompleted == false));
-
-
     }
   };
 

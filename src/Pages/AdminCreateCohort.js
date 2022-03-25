@@ -54,6 +54,9 @@ export default function AdminCreateCohort() {
 
   const [showB, setShowB] = useState(false);
   const toggleShowB = () => setShowB(!showB);
+
+  const [showC, setShowC] = useState(false);
+  const toggleShowC = () => setShowC(!showC);
   
   const handleCohortSelect = async (e) => {
     setSelectCohort(e.target.value);
@@ -96,7 +99,7 @@ export default function AdminCreateCohort() {
     };
     let results = await createCohort(AdminMadeCohort);
     if(results == true){
-      toggleShowB();
+      toggleShowC();
     }
     else if(results == false)
     {
@@ -315,7 +318,16 @@ export default function AdminCreateCohort() {
       <Toast.Header className="customColor">
         <strong className="me-auto whiteFontjustFont">Edited Cohort</strong>
       </Toast.Header>
-      <Toast.Body className="toastBg"> Successfully Edited Cohort</Toast.Body>
+      <Toast.Body className="toastBg">Successfully Edited Cohort</Toast.Body>
+    </Toast>
+  </ToastContainer>
+
+  <ToastContainer position="top-center" className="mt-5 ">
+    <Toast show={showC} onClose={toggleShowC} delay={5000} autohide className="CustomWidth">
+      <Toast.Header className="customColor">
+        <strong className="me-auto whiteFontjustFont">Created Cohort</strong>
+      </Toast.Header>
+      <Toast.Body className="toastBg">{cohortNames} Successfully Created</Toast.Body>
     </Toast>
   </ToastContainer>
     </>
