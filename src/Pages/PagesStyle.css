@@ -54,3 +54,10 @@
     /* //opacity: 100% !important; */
     background-color: rgba(255, 255, 255, 0.8) !important;
 }
+.customColor{
+    background-color: rgb(19,128,92) !important;
+}
+.RedToast{
+background-color: rgb(202,36,45) !important;
+}
+

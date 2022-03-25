@@ -15,6 +15,9 @@ export default function CreateAccount() {
   const [showA, setShowA] = useState(false);
   const toggleShowA = () => setShowA(!showA);
 
+  const [showB, setShowB] = useState(false);
+  const toggleShowB = () => setShowB(!showB);
+
   const handleAddUser = async () => { 
     let userData = {
       Id: 0,
@@ -28,6 +31,10 @@ export default function CreateAccount() {
     if(result == false)
     {
       toggleShowA();
+    }
+    else if(result == true)
+    {
+      toggleShowB();
     }
 
     console.log(result);
@@ -125,11 +132,20 @@ export default function CreateAccount() {
           </Row>
           </div>
           <ToastContainer position="top-center" className="mt-5">
-          <Toast show={showA} onClose={toggleShowA} delay={5000} autohide>
-         <Toast.Header >
-           <strong className="me-auto">Unable to Create User</strong>
+          <Toast show={showA} onClose={toggleShowA} delay={5000} autohide >
+         <Toast.Header className="RedToast">
+           <strong className="me-auto whiteFontjustFont">Unable to Create User</strong>
           </Toast.Header>
          <Toast.Body className="toastBg">User Already Exits, Enter in a new CodewarName</Toast.Body>
+         </Toast>
+        </ToastContainer>
+
+          <ToastContainer position="top-center" className="mt-5">
+          <Toast show={showB} onClose={toggleShowB} delay={5000} autohide>
+         <Toast.Header className="customColor">
+           <strong className="me-auto whiteFontjustFont">User Created</strong>
+          </Toast.Header>
+         <Toast.Body className='toastBg'>{codeWarName} Successfully Created</Toast.Body >
          </Toast>
         </ToastContainer>
       </Container>
