@@ -51,6 +51,9 @@ export default function AdminCreateCohort() {
   const handleShow2 = () => setShow2(true);
   const [showA, setShowA] = useState(false);
   const toggleShowA = () => setShowA(!showA);
+
+  const [showB, setShowB] = useState(false);
+  const toggleShowB = () => setShowB(!showB);
   
   const handleCohortSelect = async (e) => {
     setSelectCohort(e.target.value);
@@ -92,7 +95,11 @@ export default function AdminCreateCohort() {
       IsArchived: false,
     };
     let results = await createCohort(AdminMadeCohort);
-    if(!results){
+    if(results == true){
+      toggleShowB();
+    }
+    else if(results == false)
+    {
       toggleShowA();
     }
     let displayCohorts = await getallCohorts();
@@ -112,7 +119,11 @@ export default function AdminCreateCohort() {
     
   let results = await updateCohort(AdminMadeCohort);
   //console.log(results);
-  if(!results){
+  if(results == true){
+    toggleShowB();
+  }
+  else if(results == false)
+  {
     toggleShowA();
   }
   let displayCohorts = await getallCohorts();
@@ -296,6 +307,15 @@ export default function AdminCreateCohort() {
         <strong className="me-auto whiteFontjustFont">Unable to Create Cohort</strong>
       </Toast.Header>
       <Toast.Body className="toastBg">The Cohort name you entered already exists. Please try again.</Toast.Body>
+    </Toast>
+  </ToastContainer>
+
+  <ToastContainer position="top-center" className="mt-5 ">
+    <Toast show={showB} onClose={toggleShowB} delay={5000} autohide className="CustomWidth">
+      <Toast.Header className="customColor">
+        <strong className="me-auto whiteFontjustFont">Edited Cohort</strong>
+      </Toast.Header>
+      <Toast.Body className="toastBg"> Successfully Edited Cohort</Toast.Body>
     </Toast>
   </ToastContainer>
     </>
