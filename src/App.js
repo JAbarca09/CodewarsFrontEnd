@@ -16,7 +16,7 @@ function App() {
     <UserContext.Provider value={useUser()}>
       <ReserveContext.Provider value={useReserve()}>
       <BrowserRouter>
-        {/* <LoginPage/> */}
+        <LoginPage/>
         {/* <Dashboard/> */}
         {/* <AdminDashboard/> */}
         {/* <CreateAccount/> */}
