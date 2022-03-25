@@ -50,7 +50,7 @@ export default function LoginPage() {
           </Col>
           <Col md={12} className="d-flex justify-content-center">
           <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className="whiteFont1 ms-2">Username</Form.Label>
+              <Form.Label className="whiteFont1 ms-2">CodeWarName</Form.Label>
               <Form.Control
                 className="inputWidth ms-2"
                 type="text"

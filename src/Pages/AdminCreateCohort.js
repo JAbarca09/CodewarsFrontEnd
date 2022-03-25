@@ -7,14 +7,16 @@ import {
   Form,
   Modal,
   Table,
+  Toast,
+  ToastContainer
 } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
 import { getUserByUsername, checkToken, updateCohort} from "../Services/DataContext";
 import { useNavigate } from "react-router";
-import { getUsersByCohortName, updateUser, getallCohorts, getCohortByCohortName } from "../Services/DataContext";
+import { getUsersByCohortName, updateUser, getallCohorts, getCohortByCohortName, createCohort } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './PagesStyle.css';
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
 export default function AdminCreateCohort() {
   
@@ -47,6 +49,8 @@ export default function AdminCreateCohort() {
   }
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
   
   const handleCohortSelect = async (e) => {
     setSelectCohort(e.target.value);
@@ -78,7 +82,7 @@ export default function AdminCreateCohort() {
 
 
   const handleCohort = async () => {  
-    setShow(false);
+    setShow2(false);
     const AdminMadeCohort = {
       Id: 0,
       CohortName: cohortNames,
@@ -87,8 +91,12 @@ export default function AdminCreateCohort() {
       DateCreated: new Date(),
       IsArchived: false,
     };
-    let results = await updateCohort(AdminMadeCohort);
-    //console.log(results);
+    let results = await createCohort(AdminMadeCohort);
+    if(!results){
+      toggleShowA();
+    }
+    let displayCohorts = await getallCohorts();
+      setAllCohorts(displayCohorts);
 };
 
   const handleEditCohort = async () => {  
@@ -103,6 +111,8 @@ export default function AdminCreateCohort() {
     };
   let results = await updateCohort(AdminMadeCohort);
   //console.log(results);
+  let displayCohorts = await getallCohorts();
+      setAllCohorts(displayCohorts);
 };
 
   const handleChangeRole = async (item) => {
@@ -159,7 +169,7 @@ export default function AdminCreateCohort() {
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr className="text-center">
-                  <th>#</th>
+                  <th>Id</th>
                   <th>CodeWar Username</th>
                   <th>Role</th>
                   <th>Change Role</th>
@@ -168,13 +178,13 @@ export default function AdminCreateCohort() {
               </thead>
               <tbody>
                 {
-                  displayUsers.map((user, id) => {
+                  displayUsers.map((user, idx) => {
                     return !user.isDeleted ? (
                       <>
                       {
                          
-                          <tr className="text-center"  key={id}>
-                        <td>{id+1}</td>
+                          <tr className="text-center"  key={idx}>
+                        <td>{user.id}</td>
                         <td>{user.codeWarName}</td>
                         {
                           user.isAdmin ? <td>Admin</td> : <td>Student</td>
@@ -276,6 +286,14 @@ export default function AdminCreateCohort() {
           </Modal.Footer>
         </Modal>
       </Container>
+      <ToastContainer position="top-center" className="mt-5 ">
+    <Toast show={showA} onClose={toggleShowA} delay={5000} autohide >
+      <Toast.Header >
+        <strong className="me-auto">Unable to Create Cohort</strong>
+      </Toast.Header>
+      <Toast.Body className="toastBg">The Cohort name you entered already exists. Please try again.</Toast.Body>
+    </Toast>
+  </ToastContainer>
     </>
   );
 }

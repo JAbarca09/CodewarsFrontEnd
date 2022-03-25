@@ -7,7 +7,7 @@ import UserContext from "../Context/UserContext";
 import ReserveContext from "../Context/ReserveContext";
 import { Container, Row, Col, Button, Form, Table, Toast, } from "react-bootstrap";
 import "./PagesStyle.css";
-import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName} from "../Services/DataContext";
+import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName, getReservedKataByCodeWarName } from "../Services/DataContext";
 
 let exampleUser = {
   Id: 0,
@@ -24,13 +24,17 @@ export default function Dashboard() {
   let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug } =
     useContext(ReserveContext);
 
-    let userCohort
+    let userCohort;
+    let reservedKatasByUser;
 
   useEffect(async () => {
+    //use "Admin" for testing 
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
-    let userCohort = await getCohortByCodeWarName("admin");
+    let userCohort = await getCohortByCodeWarName("Admin");
+    reservedKatasByUser = await getReservedKataByCodeWarName("Admin");
+    setTheUsersReservedKatas(reservedKatasByUser);
     setCohort(userCohort);
-    console.log(typeof Number(userCohort.cohortLevelOfDifficulty[0]));
+    console.log(userCohort);
   }, []);
 
   const [showA, setShowA] = useState(true);
@@ -38,6 +42,7 @@ export default function Dashboard() {
   const [match, setMatch] = useState(false);
 
   const [cohort, setCohort] = useState({});
+  const [theUsersReservedKatas, setTheUsersReservedKatas] = useState([]);
 
   //button "Search"
   const handleSearch = async () => {
@@ -62,12 +67,23 @@ export default function Dashboard() {
       allCompletedKataNames.push(allCompletedKata[j].kataName);
     }
 
-    console.log(typeof Number(cohort.cohortLevelOfDifficulty[0]));
-
-    //refer to the fetched kata instead thehehe
-    //if the cohort level (the user) is higher(8) than the kata level (6), don't let them reserve
-    // || allReservedKata.length >= 3
-    if ( allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || Number(cohort.cohortLevelOfDifficulty[0]) <= fetchedKataRank) {
+    // || allReservedKata.length >= 3 WE NEED THIS CHECK AS WELL, CHECK THE NUMBER OF KATAS THE USER HAS ALREADY RESERVED
+    
+    let inRange = false;
+    for(let k = 0; k<=Number(cohort.cohortLevelOfDifficulty[0]); k++){
+      if(inRange == false){
+        //checking if the kata is in the range of cohort difficulty!
+        if(k === fetchedKataRank){
+          console.log("Kata in range!");
+          inRange = true;
+        }else{
+          console.log("Kata out of range");
+        }
+      }
+    }
+    
+    //check: 1. does the kata exist, 2. is the kata completed or reserved all ready? 3. is the kata in the cohort level range? 4. Is the maximum amount of katas reservered reached?
+    if (allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || inRange === false || theUsersReservedKatas.length === 3) {
       toggleShowA();
       setMatch(true);
     } else {
@@ -94,19 +110,41 @@ export default function Dashboard() {
     console.log(results);
   };
 
-  //only works for words and spaces not special characters and ? / . ,
+  //better version but still doesn't work for every single kata!
   function TurnNameToSlugFormat(kataName) {
-    let splitArr = kataName.split(" ");
+    let kataNameWithNoSpecialChars = kataName.replace(/[^\w\s]/gi, '');
+    let wordArr = kataNameWithNoSpecialChars.split(" ");
     let finalArr = [];
-    for (let i = 0; i < splitArr.length; i++) {
-      if (i != splitArr.length - 1) {
-        finalArr.push(splitArr[i].toLowerCase());
-        finalArr.push("-");
-      } else {
-        finalArr.push(splitArr[i].toLowerCase());
+
+    //check for empty spaces
+    for(let i = 0; i<wordArr.length; i++){
+      if(wordArr[i] === ""){
+        wordArr.splice(i, 1);
       }
     }
+
+    for(let j = 0; j<wordArr.length; j++){
+      if(j != wordArr.length - 1){
+        finalArr.push(wordArr[j].toLowerCase());
+        finalArr.push("-");
+      }else{
+        finalArr.push(wordArr[j].toLowerCase());
+      }
+    }
+    console.log(finalArr.join(""))
     return finalArr.join("");
+
+    // let splitArr = kataName.split(" ");
+    // let finalArr = [];
+    // for (let i = 0; i < splitArr.length; i++) {
+    //   if (i != splitArr.length - 1) {
+    //     finalArr.push(splitArr[i].toLowerCase());
+    //     finalArr.push("-");
+    //   } else {
+    //     finalArr.push(splitArr[i].toLowerCase());
+    //   }
+    // }
+    // return finalArr.join("");
   }
 
   return (
@@ -227,12 +265,14 @@ export default function Dashboard() {
                     show={!showA}
                     onClose={toggleShowA}
                     className="katasErrorMsg"
+                    delay={5000}
+                    autohide
                   >
                     <Toast.Header>
                       <strong className="me-auto">Error</strong>
                     </Toast.Header>
                     <Toast.Body>
-                      This Kata is already reserved or completed!
+                      This Kata is already reserved, completed or you reached the maximum amount of reserves
                     </Toast.Body>
                   </Toast>
                 </Col>
