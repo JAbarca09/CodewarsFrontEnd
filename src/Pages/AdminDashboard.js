@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import KatasReserved from "../Components/KatasReserved";
@@ -8,6 +8,9 @@ import AdminKatasReserved from '../Components/AdminKatasReserved';
 
 
 export default function AdminDashboard() {
+  const [userSearch ,setUserSearch] = useState("");
+
+
   return (
     <Container fluid className="backgroundColor">
         <Row className="pt-4">
@@ -29,7 +32,8 @@ export default function AdminDashboard() {
                       <Form.Control
                         className="kataSearchBar curveRadius"
                         type="text"
-                        placeholder="Username"
+                        placeholder="Enter Codewar's Username"
+                        onChange={({ target }) => setUserSearch(target.value)}
                       />
                     </Form.Group>
                   </Col>

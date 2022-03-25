@@ -5,28 +5,16 @@ import ReserveContext from "../Context/ReserveContext";
 import UserContext from "../Context/UserContext";
 import { getReservedKataByCodeWarName, getKataBySlug } from "../Services/DataContext";
 
-let exampleUser = {
-  Id: 0,
-  CohortName: "Season4",
-  CodeWarName: "Jabarca435",
-  Salt: "",
-  Hash: "",
-  IsAdmin: true,
-  IsDeleted: false,
-};
-
 export default function KatasReserved() {
-  const [userRerservedKatas, setDisplayReservebyUser] = useState([]);
 
-  let { codeWarName } = useContext(UserContext);
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug } =
-    useContext(ReserveContext);
+  let { userItems,codeWarName } = useContext(UserContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser} = useContext(ReserveContext);
+
+  // const [incompleteKatasArr, setIncompleteKatasArr] = useState([]);
 
   useEffect(async () => {
-    let reservedKatas = await getReservedKataByCodeWarName("Admin");
-    console.log(reservedKatas);
-    setDisplayReservebyUser(reservedKatas);
-    console.log(userRerservedKatas);
+    let reservedKatas = await getReservedKataByCodeWarName(userItems.codeWarName);
+    setDisplayReservebyUser(reservedKatas.filter(kata => kata.isCompleted == false));
   }, []);
 
   return (

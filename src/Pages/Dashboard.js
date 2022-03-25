@@ -7,45 +7,40 @@ import UserContext from "../Context/UserContext";
 import ReserveContext from "../Context/ReserveContext";
 import { Container, Row, Col, Button, Form, Table, Toast, } from "react-bootstrap";
 import "./PagesStyle.css";
-import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName, getReservedKataByCodeWarName } from "../Services/DataContext";
+import { getCohortByCohortName, getCohortById, getUserByUsername, getKataBySlug, updateReservedKata, UpdateReservation, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName, getReservedKataByCodeWarName, AddCompletedKata } from "../Services/DataContext";
 
-let exampleUser = {
-  Id: 0,
-  CohortName: "Season4",
-  CodeWarName: "Jabarca435",
-  Salt: "",
-  Hash: "",
-  IsAdmin: false,
-  IsDeleted: false,
-};
 
 export default function Dashboard() {
-  let { codeWarName, isAdmin, cohortName } = useContext(UserContext);
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug } =
-    useContext(ReserveContext);
+  let { userItems, codeWarName, isAdmin, setIsAdmin, cohortName, setCohortName } = useContext(UserContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser } = useContext(ReserveContext);
 
-    let userCohort;
-    let reservedKatasByUser;
+  let reservedKatasByUser;
 
   useEffect(async () => {
-    //use "Admin" for testing 
-    let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
-    let userCohort = await getCohortByCodeWarName("Admin");
-    reservedKatasByUser = await getReservedKataByCodeWarName("Admin");
-    setTheUsersReservedKatas(reservedKatasByUser);
-    setCohort(userCohort);
-    console.log(userCohort);
-  }, []);
+    console.log(userItems.cohortName);
+    let fetchedCurrentUser = await getUserByUsername(userItems.codeWarName);
+    setIsAdmin(fetchedCurrentUser.isAdmin);
+
+    // let userCompletedKatas = await getAllCompletedKatasByCodeWarName(userItems.codeWarName);
+    let userCohort = await getCohortByCohortName(userItems.cohortName);
+    // console.log(userItems.cohortName)
+    setCohort(userCohort[0].cohortLevelOfDifficulty);
+    // console.log(userCohort.cohortLevelOfDifficulty);
+    console.log(userCohort[0].cohortLevelOfDifficulty)
+   }, []);
 
   const [showA, setShowA] = useState(true);
   const toggleShowA = () => setShowA(!showA);
   const [match, setMatch] = useState(false);
 
-  const [cohort, setCohort] = useState({});
+  const [cohort, setCohort] = useState(0);
   const [theUsersReservedKatas, setTheUsersReservedKatas] = useState([]);
 
   //button "Search"
   const handleSearch = async () => {
+    reservedKatasByUser = await getReservedKataByCodeWarName(userItems.codeWarName);
+    setTheUsersReservedKatas(reservedKatasByUser);
+
     let allCompletedKata = await getAllCompletedKatas();
     let allReservedKata = await getAllReservedKatas();
 
@@ -70,14 +65,14 @@ export default function Dashboard() {
     // || allReservedKata.length >= 3 WE NEED THIS CHECK AS WELL, CHECK THE NUMBER OF KATAS THE USER HAS ALREADY RESERVED
     
     let inRange = false;
-    for(let k = 0; k<=Number(cohort.cohortLevelOfDifficulty[0]); k++){
+    for(let k = 0; k<=Number(cohort); k++){
       if(inRange == false){
         //checking if the kata is in the range of cohort difficulty!
         if(k === fetchedKataRank){
-          console.log("Kata in range!");
+          // console.log("Kata in range!");
           inRange = true;
         }else{
-          console.log("Kata out of range");
+          // console.log("Kata out of range");
         }
       }
     }
@@ -88,6 +83,10 @@ export default function Dashboard() {
       setMatch(true);
     } else {
       setMatch(false);
+      let reservedKatas = await getReservedKataByCodeWarName(userItems.codeWarName);
+      setDisplayReservebyUser(reservedKatas.filter(kata => kata.isCompleted == false));
+
+
     }
   };
 
@@ -149,7 +148,7 @@ export default function Dashboard() {
 
   return (
     <>
-      {exampleUser.IsAdmin == true ? (
+      {isAdmin == true ? (
         <>
           <Navigation />
           <AdminDashboard />
@@ -161,13 +160,13 @@ export default function Dashboard() {
             <Row className="pt-4">
               <Col md={12} className="d-flex justify-content-center">
                 {/* Cohort displayed based on user */}
-                <h3 className="whiteFont2">Cohort: {cohort.cohortName}</h3>
+                <h3 className="whiteFont2">Cohort: {userItems.cohortName}</h3>
               </Col>
             </Row>
             <Row className="">
               <Col md={12} className="d-flex justify-content-center">
                 {/* Cohort displayed based on user */}
-                <h3 className="whiteFont2">Level: {cohort.cohortLevelOfDifficulty}</h3>
+                <h3 className="whiteFont2">Level: {cohort} kyu</h3>
               </Col>
             </Row>
             <Container>
