@@ -11,7 +11,6 @@ import ReserveContext from "./Context/ReserveContext";
 import useUser from "./Hooks/use-user";
 import useReserve from "./Hooks/use-reserve";
 
-
 function App() {
   return (
     <UserContext.Provider value={useUser()}>

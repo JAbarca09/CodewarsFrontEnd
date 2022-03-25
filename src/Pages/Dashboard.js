@@ -7,35 +7,26 @@ import UserContext from "../Context/UserContext";
 import ReserveContext from "../Context/ReserveContext";
 import { Container, Row, Col, Button, Form, Table, Toast, } from "react-bootstrap";
 import "./PagesStyle.css";
-import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName, getReservedKataByCodeWarName } from "../Services/DataContext";
+import { getCohortByCohortName, getCohortById, getUserByUsername, getKataBySlug, updateReservedKata, UpdateReservation, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName, getReservedKataByCodeWarName, AddCompletedKata } from "../Services/DataContext";
 
-let exampleUser = {
-  Id: 0,
-  CohortName: "Season4",
-  CodeWarName: "Jabarca435",
-  Salt: "",
-  Hash: "",
-  IsAdmin: false,
-  IsDeleted: false,
-};
 
 export default function Dashboard() {
-  let { codeWarName, isAdmin, cohortName } = useContext(UserContext);
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug } =
-    useContext(ReserveContext);
+  let { userItems, codeWarName, isAdmin, setIsAdmin, cohortName, setCohortName } = useContext(UserContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser } = useContext(ReserveContext);
 
-    let userCohort;
-    let reservedKatasByUser;
+  let reservedKatasByUser;
 
   useEffect(async () => {
-    //use "Admin" for testing 
-    let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
-    let userCohort = await getCohortByCodeWarName("Admin");
-    reservedKatasByUser = await getReservedKataByCodeWarName("Admin");
-    setTheUsersReservedKatas(reservedKatasByUser);
+    console.log(userItems.cohortName);
+    let fetchedCurrentUser = await getUserByUsername(userItems.codeWarName);
+    setIsAdmin(fetchedCurrentUser.isAdmin);
+
+    // let userCompletedKatas = await getAllCompletedKatasByCodeWarName(userItems.codeWarName);
+    let userCohort = await getCohortByCohortName(userItems.cohortName);
+    // console.log(userItems.cohortName)
     setCohort(userCohort);
     console.log(userCohort);
-  }, []);
+   }, []);
 
   const [showA, setShowA] = useState(true);
   const toggleShowA = () => setShowA(!showA);
@@ -46,6 +37,9 @@ export default function Dashboard() {
 
   //button "Search"
   const handleSearch = async () => {
+    reservedKatasByUser = await getReservedKataByCodeWarName(userItems.codeWarName);
+    setTheUsersReservedKatas(reservedKatasByUser);
+
     let allCompletedKata = await getAllCompletedKatas();
     let allReservedKata = await getAllReservedKatas();
 
@@ -149,7 +143,7 @@ export default function Dashboard() {
 
   return (
     <>
-      {exampleUser.IsAdmin == true ? (
+      {isAdmin == true ? (
         <>
           <Navigation />
           <AdminDashboard />
@@ -161,7 +155,7 @@ export default function Dashboard() {
             <Row className="pt-4">
               <Col md={12} className="d-flex justify-content-center">
                 {/* Cohort displayed based on user */}
-                <h3 className="whiteFont2">Cohort: {cohort.cohortName}</h3>
+                <h3 className="whiteFont2">Cohort: {userItems.cohortName}</h3>
               </Col>
             </Row>
             <Row className="">

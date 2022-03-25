@@ -6,15 +6,6 @@ import UserContext from "../Context/UserContext";
 import { Link } from "react-router-dom";
 import LoginPage from "../Pages/LoginPage";
 
-let exampleUser = {
-  Id: 0,
-  CohortName: "Season4",
-  CodeWarName: "Jabarca435",
-  Salt: "",
-  Hash: "",
-  IsAdmin: true,
-  IsDeleted: false,
-};
 
 export default function Navigation() {
   let { codeWarName, isAdmin, cohortName, setToken } = useContext(UserContext);
