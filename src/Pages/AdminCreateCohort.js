@@ -28,7 +28,7 @@ export default function AdminCreateCohort() {
   const [selectCohort, setSelectCohort] = useState("");
   const [selectCohortRank, setSelectCohortRank] = useState("");
   const [displayUsers, setDisplayUsers] = useState([]);
-  const [editBool, setEditBool] = useState(false);
+  const [editCohort, setEditCohort] = useState({});
   const [allCohorts, setAllCohorts] = useState([]);
 
   const [show, setShow] = useState(false);
@@ -40,8 +40,9 @@ export default function AdminCreateCohort() {
   const handleShow = async () => {
     setShow(true);
     let displayRank = await getCohortByCohortName(selectCohort);
-    console.log(displayRank[0].cohortLevelOfDifficulty)
+    //console.log(displayRank[0].cohortLevelOfDifficulty)
     setKataDifficulty(displayRank[0].cohortLevelOfDifficulty);
+    setEditCohort(displayRank[0]);
 
   }
   const handleClose2 = () => setShow2(false);
@@ -52,7 +53,7 @@ export default function AdminCreateCohort() {
     let cohort = e.target.value;
     let seasonUsers = await getUsersByCohortName(cohort);
     setDisplayUsers(seasonUsers);
-    console.log(seasonUsers);
+    //console.log(seasonUsers);
   }
   
   const [cohortRank, setCohortRank] = useState("");
@@ -87,7 +88,21 @@ export default function AdminCreateCohort() {
       IsArchived: false,
     };
     let results = await updateCohort(AdminMadeCohort);
-    console.log(results);
+    //console.log(results);
+};
+
+  const handleEditCohort = async () => {  
+    setShow(false);
+    const AdminMadeCohort = {
+      Id: editCohort.id,
+      CohortName: selectCohort,
+      CodeWarName: userItems.codeWarName,
+      CohortLevelOfDifficulty: kataDifficulty,
+      DateCreated: new Date(),
+      IsArchived: false,
+    };
+  let results = await updateCohort(AdminMadeCohort);
+  console.log(results);
 };
 
   const handleChangeRole = async (item) => {
@@ -216,7 +231,7 @@ export default function AdminCreateCohort() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleCohort}>
+            <Button variant="primary" onClick={handleEditCohort}>
               Save Changes
             </Button>
           </Modal.Footer>
