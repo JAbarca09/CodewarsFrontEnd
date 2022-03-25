@@ -109,6 +109,7 @@ export default function AdminCreateCohort() {
       DateCreated: new Date(),
       IsArchived: false,
     };
+    
   let results = await updateCohort(AdminMadeCohort);
   //console.log(results);
   if(!results){

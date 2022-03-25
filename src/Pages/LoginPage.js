@@ -14,6 +14,7 @@ export default function LoginPage() {
     setCodeWarName,
     userItems,
     setUserItems,
+    setCohortName
   } = useContext(UserContext);
 
   const [password, setPassword] = useState("");
@@ -25,6 +26,7 @@ export default function LoginPage() {
       CodeWarName: codeWarName,
       Password: password,
     };
+
     let token = await login(userData);
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
@@ -32,6 +34,7 @@ export default function LoginPage() {
       console.log(userItems1);
       setUserItems(userItems1);
       navigate("/dashboard");
+      setCohortName(userData.codeWarName);
     }else{
       toggleShowA();
     }

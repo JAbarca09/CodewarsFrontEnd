@@ -179,6 +179,25 @@ async function updateReservedKata(updateReservation){
     return data;
 }
 
+async function UpdateReservation(CodeWarName, IsCompleted){
+    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/Reservation/UpdateReservation/${CodeWarName}/${IsCompleted}`, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify()
+    });
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
+    return data;
+}
+
 //-------------------------------------------------------------------------------------------------
 //These are for Completed Katas
 
@@ -193,6 +212,26 @@ async function getAllCompletedKatas(){
 async function getAllCompletedKatasByCodeWarName(codeWarName){
     let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/CompletedKatas/GetAllCompletedKatas/"+codeWarName);
     let data = await res.json();
+    return data;
+}
+
+async function AddCompletedKata(newCompletedKata){
+    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/CompletedKatas/AddCompletedKata`, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(newCompletedKata)
+    });
+
+
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data)
     return data;
 }
 
@@ -281,5 +320,5 @@ export{ checkToken, createAccount, login,
     getAllReservedKatas, updateReservedKata, getAllCompletedKatas,
     getAllCompletedKatasByCodeWarName, createCohort, updateCohort,
     getCohortByCohortName, getCohortByCodeWarName, getCohortById,getallCohorts,
-    getKataBySlug
+    getKataBySlug, AddCompletedKata, UpdateReservation
 }
