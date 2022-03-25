@@ -1,81 +1,72 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Row, Col, Table, Button } from "react-bootstrap";
 import "./ComponentsStyle.css";
+import UserContext from "../Context/UserContext";
+import ReserveContext from "../Context/ReserveContext";
+import { getCohortByCohortName, getUserByUsername, UpdateReservation, getAllCompletedKatasByCodeWarName } from "../Services/DataContext";
 
 export default function AdminKatasReserved() {
-  let exampleUser = {
-    Id: 0,
-    CohortName: "Season4",
-    CodeWarName: "Jabarca435",
-    Salt: "",
-    Hash: "",
-    IsAdmin: true,
-    IsDeleted: false,
-  };
+  let {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch,searchCompletedKatas, setSearchCompletedKatas,searchedCohortName,setSearchedCohortName,searchedCohortLvl,setSearchedCohortLvl, completedKatas,setCompletedKatas} = useContext(ReserveContext);
+  let { codeWarName, cohortName, isAdmin } = useContext(UserContext);
 
-  //endpoint fetching the cohort by a user's username
+  const [completeButtonKataValue, setCompleteButtonKataValue] = useState("");
+
+   
+   const handleCompleted = async (item) => {
+     item.isCompleted = !item.isCompleted;
+     console.log(item);
+  
+    let KataPassedIn = await UpdateReservation(item.id, item.isCompleted);
+    console.log(KataPassedIn);
+
+    if(KataPassedIn){
+      let completedKatas = await getAllCompletedKatasByCodeWarName(item.codeWarName);
+      console.log(completedKatas);
+      setCompletedKatas(completedKatas);
+    }
+
+   }
+
+   const handleUnreserve = (item) => {
+
+      
+   }
+
+
   return (
     <Row>
-      {/* Replaced x with numbers of reserved by users */}
       <Col md={6} className="px-0">
         <p className="whiteFont">
-          Katas Reserved by {exampleUser.CodeWarName} : x/3{" "}
+          Katas Reserved by {userSearch} : {adminIncompleteKatas.length}/3{" "}
         </p>
       </Col>
       <Col md={6}>
-          <p className="mt-1 whiteFont">Cohort: {exampleUser.CohortName}, Level: x</p>
+          <p className="mt-1 whiteFont">Cohort: {searchedCohortName}, Level: {searchedCohortLvl}</p>
       </Col>
 
-      {/* replace Name of Kata and Kyu level can be accessed through pulled object */}
       <Table bordered className="katasReserved">
         <tbody className="whiteFont">
           <tr>
-            <Row>
-              <Col md={4} className="mt-1 d-flex justify-content-center">
-                <td colSpan={2}>Name of Kata #1</td>
-              </Col>
-              <Col md={4} className="mt-1 d-flex justify-content-center">
-                <td colSpan={2}>Kyu Rank #1</td>
-              </Col>
-              <Col md={2} className="d-flex justify-content-center">
-                <Button variant="success">Completed</Button>
-              </Col>
-              <Col md={2} className="d-flex justify-content-center">
-                <Button variant="danger">Unreserve</Button>
-              </Col>
-            </Row>
-          </tr>
-          <tr>
-            <Row>
-              <Col md={4} className="mt-1 d-flex justify-content-center">
-                <td colSpan={2}>Name of Kata #2</td>
-              </Col>
-              <Col md={4} className="mt-1 d-flex justify-content-center">
-                <td colSpan={2}>Kyu Rank #2</td>
-              </Col>
-              <Col md={2} className="d-flex justify-content-center">
-                <Button variant="success">Completed</Button>
-                </Col>
-                <Col md={2} className="d-flex justify-content-center">
-                <Button variant="danger">Unreserve</Button>
-                </Col>
-            </Row>
-          </tr>
-          <tr>
-            <Row>
-              <Col md={4} className="mt-1 d-flex justify-content-center">
-                <td colSpan={2}>Name of Kata #3</td>
-              </Col>
-              <Col md={4} className="mt-1 d-flex justify-content-center">
-                <td colSpan={2}>Kyu Rank #3</td>
-              </Col>
-              <Col md={2} className="d-flex justify-content-center">
-                <Button variant="success">Completed</Button>
-              </Col>
-              <Col md={2} className="d-flex justify-content-center">
-                <Button variant="danger">Unreserve</Button>
-              </Col>
-            </Row>
+              {
+                adminIncompleteKatas.map((kata, idx) => 
+                <>
+            <Row key={idx}>
+                  <Col md={4} className="mt-2 d-flex justify-content-center">
+                    <td onChange={(e) => setCompleteButtonKataValue(e.target.value)} colSpan={2}>{kata.kataName}</td>
+                  </Col>
+                  <Col md={4} className="mt-2 d-flex justify-content-center">
+                    <td colSpan={2}>{kata.kataRank}</td>
+                  </Col>
+                  <Col md={2} className="mt-1 d-flex justify-content-center">
+                    <Button variant="success" onClick={() => handleCompleted(kata)}>Completed</Button>
+                  </Col>
+                  <Col md={2} className="mt-1 d-flex justify-content-center">
+                    <Button variant="danger" onClick={handleUnreserve}>Unreserve</Button>
+                  </Col>
+              </Row>
+                </>
+                )
+              }
           </tr>
         </tbody>
       </Table>

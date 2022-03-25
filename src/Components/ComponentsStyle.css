@@ -10,6 +10,12 @@
     color: #FFFFFF;
     font-size: 20px;
 }
+.justWhiteFont{
+    color:#FFFFFF;
+}
+.accordion{
+    color:#e20000 !important;
+}
 
 .logo{
     height: 10vmin;
@@ -17,6 +23,12 @@
 
 .katasReserved{
     background-color: #262729;
+    border-color: #707070;
+    border-top: transparent;
+    
+}
+.katasReserved2{
+    background-color: #413e3e;
     border-color: #707070;
     border-top: transparent;
     
@@ -30,4 +42,8 @@
     background-color: #FFFFFF;
     border-color: #707070;
     border-top: transparent;
+}
+
+a{
+    color: white !important;
 }
