@@ -10,6 +10,16 @@ import LoginPage from "../Pages/LoginPage";
 export default function Navigation() {
   let { codeWarName, isAdmin, cohortName, setToken } = useContext(UserContext);
 
+  let exampleUser = {
+    Id: 0,
+    CohortName: "Season4",
+    CodeWarName: "Jabarca435",
+    Salt: "",
+    Hash: "",
+    IsAdmin: true,
+    IsDeleted: false,
+  }
+
   const handleLogOut = () => {
     localStorage.clear()
 
