@@ -111,6 +111,9 @@ export default function AdminCreateCohort() {
     };
   let results = await updateCohort(AdminMadeCohort);
   //console.log(results);
+  if(!results){
+    toggleShowA();
+  }
   let displayCohorts = await getallCohorts();
       setAllCohorts(displayCohorts);
 };
