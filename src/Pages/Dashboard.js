@@ -30,7 +30,6 @@ export default function Dashboard() {
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
     let userCohort = await getCohortByCodeWarName("admin");
     setCohort(userCohort);
-    console.log(typeof Number(userCohort.cohortLevelOfDifficulty[0]));
   }, []);
 
   const [showA, setShowA] = useState(true);
@@ -62,7 +61,6 @@ export default function Dashboard() {
       allCompletedKataNames.push(allCompletedKata[j].kataName);
     }
 
-    console.log(typeof Number(cohort.cohortLevelOfDifficulty[0]));
 
     //refer to the fetched kata instead thehehe
     //if the cohort level (the user) is higher(8) than the kata level (6), don't let them reserve
@@ -96,17 +94,39 @@ export default function Dashboard() {
 
   //only works for words and spaces not special characters and ? / . ,
   function TurnNameToSlugFormat(kataName) {
-    let splitArr = kataName.split(" ");
+    let kataNameWithNoSpecialChars = kataName.replace(/[^\w\s]/gi, '');
+    let wordArr = kataNameWithNoSpecialChars.split(" ");
     let finalArr = [];
-    for (let i = 0; i < splitArr.length; i++) {
-      if (i != splitArr.length - 1) {
-        finalArr.push(splitArr[i].toLowerCase());
-        finalArr.push("-");
-      } else {
-        finalArr.push(splitArr[i].toLowerCase());
+
+    //check for empty spaces
+    for(let i = 0; i<wordArr.length; i++){
+      if(wordArr[i] === ""){
+        wordArr.splice(i, 1);
       }
     }
+
+    for(let j = 0; j<wordArr.length; j++){
+      if(j != wordArr.length - 1){
+        finalArr.push(wordArr[j].toLowerCase());
+        finalArr.push("-");
+      }else{
+        finalArr.push(wordArr[j].toLowerCase());
+      }
+    }
+    console.log(finalArr.join(""))
     return finalArr.join("");
+
+    // let splitArr = kataName.split(" ");
+    // let finalArr = [];
+    // for (let i = 0; i < splitArr.length; i++) {
+    //   if (i != splitArr.length - 1) {
+    //     finalArr.push(splitArr[i].toLowerCase());
+    //     finalArr.push("-");
+    //   } else {
+    //     finalArr.push(splitArr[i].toLowerCase());
+    //   }
+    // }
+    // return finalArr.join("");
   }
 
   return (
