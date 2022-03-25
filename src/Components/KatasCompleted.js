@@ -8,27 +8,19 @@ import ReserveContext from "../Context/ReserveContext";
 export default function KatasCompleted() {
 
   let { userItems, codeWarName, isAdmin } = useContext(UserContext);
-  // let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, userSearch, searchCompletedKatas, setSearchCompletedKatas} =
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, completedKatas, setCompletedKatas, userSearch, searchCompletedKatas, setSearchCompletedKatas} =
-    useContext(ReserveContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, completedKatas, setCompletedKatas, userSearch, searchCompletedKatas, setSearchCompletedKatas, searchCodeWarsUser, setSearchCodeWarsUser} = useContext(ReserveContext);
 
   
 
   useEffect(async () => {
-    // let completedKatasByCodeWarsUser = await getAllCompletedKatasByCodeWarName(codeWarName);
     let reservedKatas = await getReservedKataByCodeWarName(userItems.codeWarName);
     setCompletedKatas(reservedKatas.filter(kata => kata.isCompleted == true));
-    // console.log(completedKatasByCodeWarsUser);
-    // setCompletedKatas(completedKatasByCodeWarsUser);
-    // let searchCompletedKata = await getReservedKataByCodeWarName(userSearch);
-    // setSearchCompletedKatas(searchCompletedKata.filter(kata => kata.isCompleted == true));
-   
   }, []);
 
 
 
   return (
-    
+    <>
     <Row>
         {
         isAdmin == true ?
@@ -52,7 +44,7 @@ export default function KatasCompleted() {
                     <td colSpan={2}>{kata.kataName}</td>
                     </a>
                   </Col>
-                  <Col md={6} className="mb-2 d-flex justify-content-center">
+                 <Col md={6} className="mb-2 d-flex justify-content-center">
                     <td colSpan={2}>{kata.kataRank}</td>
                   </Col>
                   <hr className="mt-2"/>
@@ -89,5 +81,6 @@ export default function KatasCompleted() {
         </Accordion.Item>
       </Accordion>
     </Row>
+    </>
   );
 }

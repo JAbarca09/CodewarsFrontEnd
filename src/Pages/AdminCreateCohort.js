@@ -42,7 +42,6 @@ export default function AdminCreateCohort() {
   const handleShow = async () => {
     setShow(true);
     let displayRank = await getCohortByCohortName(selectCohort);
-    //console.log(displayRank[0].cohortLevelOfDifficulty)
     setKataDifficulty(displayRank[0].cohortLevelOfDifficulty);
     setEditCohort(displayRank[0]);
 
@@ -63,7 +62,6 @@ export default function AdminCreateCohort() {
     let cohort = e.target.value;
     let seasonUsers = await getUsersByCohortName(cohort);
     setDisplayUsers(seasonUsers);
-    //console.log(seasonUsers);
   }
   
   const [cohortRank, setCohortRank] = useState("");

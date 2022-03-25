@@ -17,16 +17,11 @@ export default function Dashboard() {
   let reservedKatasByUser;
 
   useEffect(async () => {
-    console.log(userItems.cohortName);
     let fetchedCurrentUser = await getUserByUsername(userItems.codeWarName);
     setIsAdmin(fetchedCurrentUser.isAdmin);
 
-    // let userCompletedKatas = await getAllCompletedKatasByCodeWarName(userItems.codeWarName);
     let userCohort = await getCohortByCohortName(userItems.cohortName);
-    // console.log(userItems.cohortName)
     setCohort(userCohort[0].cohortLevelOfDifficulty);
-    // console.log(userCohort.cohortLevelOfDifficulty);
-    console.log(userCohort[0].cohortLevelOfDifficulty)
    }, []);
 
   const [showA, setShowA] = useState(true);
@@ -51,7 +46,6 @@ export default function Dashboard() {
 
     let fetchedKataRank = Number(fetchedKata.rank.name[0]);
 
-    //how many katas can the user reserve
     let allReservedKataNames = [];
     let allCompletedKataNames = [];
     for (let i = 0; i < allReservedKata.length; i++) {
@@ -62,22 +56,17 @@ export default function Dashboard() {
       allCompletedKataNames.push(allCompletedKata[j].kataName);
     }
 
-    // || allReservedKata.length >= 3 WE NEED THIS CHECK AS WELL, CHECK THE NUMBER OF KATAS THE USER HAS ALREADY RESERVED
     
     let inRange = false;
     for(let k = 0; k<=Number(cohort); k++){
       if(inRange == false){
-        //checking if the kata is in the range of cohort difficulty!
         if(k === fetchedKataRank){
-          // console.log("Kata in range!");
           inRange = true;
         }else{
-          // console.log("Kata out of range");
         }
       }
     }
     
-    //check: 1. does the kata exist, 2. is the kata completed or reserved all ready? 3. is the kata in the cohort level range? 4. Is the maximum amount of katas reservered reached?
     if (allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || inRange === false || theUsersReservedKatas.length === 3) {
       toggleShowA();
       setMatch(true);
@@ -130,18 +119,6 @@ export default function Dashboard() {
     }
     console.log(finalArr.join(""))
     return finalArr.join("");
-
-    // let splitArr = kataName.split(" ");
-    // let finalArr = [];
-    // for (let i = 0; i < splitArr.length; i++) {
-    //   if (i != splitArr.length - 1) {
-    //     finalArr.push(splitArr[i].toLowerCase());
-    //     finalArr.push("-");
-    //   } else {
-    //     finalArr.push(splitArr[i].toLowerCase());
-    //   }
-    // }
-    // return finalArr.join("");
   }
 
   return (

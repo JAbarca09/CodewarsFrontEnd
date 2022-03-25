@@ -10,16 +10,6 @@ import LoginPage from "../Pages/LoginPage";
 export default function Navigation() {
   let { codeWarName, isAdmin, cohortName, setToken } = useContext(UserContext);
 
-  let exampleUser = {
-    Id: 0,
-    CohortName: "Season4",
-    CodeWarName: "Jabarca435",
-    Salt: "",
-    Hash: "",
-    IsAdmin: true,
-    IsDeleted: false,
-  }
-
   const handleLogOut = () => {
     localStorage.clear()
 
@@ -29,7 +19,6 @@ export default function Navigation() {
     <Container fluid className="px-0">
       <Navbar className="navBG">
         <Container className="d-flex justify-content-center">
-          {/* remember to change href */}
           <Row>
             <Col md={12} className="d-flex justify-content-center">
               <Navbar.Brand href="dashboard">
@@ -45,8 +34,7 @@ export default function Navigation() {
                 <Nav.Link as={Link} to="/dashboard">
                   <span className="whiteFont">Dashboard</span>
                 </Nav.Link>
-                {/* Below only appears for admins */}
-                {exampleUser.IsAdmin == true ? (
+                {isAdmin == true ? (
                   <>
                     <Nav.Link as={Link} to="/creataccount">
                       <span className="whiteFont">Create User</span>

@@ -179,8 +179,8 @@ async function updateReservedKata(updateReservation){
     return data;
 }
 
-async function UpdateReservation(CodeWarName, IsCompleted){
-    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/Reservation/UpdateReservation/${CodeWarName}/${IsCompleted}`, {
+async function UpdateReservation(Id, IsCompleted){
+    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Reservation/UpdateReservation/"+Id+"/"+IsCompleted, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -287,7 +287,7 @@ async function getCohortByCohortName(cohortName){
 
 //Get Cohort By CodeWar Name
 async function getCohortByCodeWarName(codewarName){
-    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortByCodeWarName/${codewarName}`);
+    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortByCodeWarName/"+codewarName);
     let data = await res.json();
     return data;
 }
@@ -313,6 +313,12 @@ async function getallCohorts(){
     return data;
 }
 
+async function getUserDataFromCodeWars(user){
+    let res = await fetch("https://www.codewars.com/api/v1/users/"+user);
+    let data = await res.json();
+    return data;
+}
+
 export{ checkToken, createAccount, login,
     updateUser, giveUserAdmin, permanentlyDeleteUser,
     getAllUsers, getUserByUsername, getUserById,
@@ -320,5 +326,5 @@ export{ checkToken, createAccount, login,
     getAllReservedKatas, updateReservedKata, getAllCompletedKatas,
     getAllCompletedKatasByCodeWarName, createCohort, updateCohort,
     getCohortByCohortName, getCohortByCodeWarName, getCohortById,getallCohorts,
-    getKataBySlug, AddCompletedKata, UpdateReservation
+    getKataBySlug, AddCompletedKata, UpdateReservation, getUserDataFromCodeWars
 }

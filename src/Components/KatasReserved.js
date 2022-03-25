@@ -10,7 +10,6 @@ export default function KatasReserved() {
   let { userItems,codeWarName } = useContext(UserContext);
   let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser} = useContext(ReserveContext);
 
-  // const [incompleteKatasArr, setIncompleteKatasArr] = useState([]);
 
   useEffect(async () => {
     let reservedKatas = await getReservedKataByCodeWarName(userItems.codeWarName);
@@ -20,14 +19,12 @@ export default function KatasReserved() {
   return (
     <>
       <Row>
-        {/* Replaced x with numbers of reserved by users */}
         <Col md={12} className="px-0">
           <p className="whiteFont">
             Katas Reserved: {userRerservedKatas.length}/3
           </p>
         </Col>
 
-        {/* replace Name of Kata and Kyu level can be accessed through pulled object */}
         <Table bordered className="katasReserved">
           <tbody className="whiteFont">
             {
