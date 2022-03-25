@@ -7,6 +7,9 @@ export default function useReserve(){
     const [userRerservedKatas, setDisplayReservebyUser] = useState([]);
     const [adminIncompleteKatas, setAdminIncompleteKatas] = useState([]);
     const [userSearch ,setUserSearch] = useState("");
+    const [searchCompletedKatas, setSearchCompletedKatas] = useState([]);
+    const [searchedCohortName, setSearchedCohortName] = useState("");
+    const [searchedCohortLvl, setSearchedCohortLvl] = useState(0);
 
-  return {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch}
+  return {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch,searchCompletedKatas, setSearchCompletedKatas,searchedCohortName,setSearchedCohortName,searchedCohortLvl,setSearchedCohortLvl}
 }

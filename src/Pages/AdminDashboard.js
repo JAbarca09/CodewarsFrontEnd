@@ -4,18 +4,28 @@ import Navigation from "../Components/Navigation";
 import KatasReserved from "../Components/KatasReserved";
 import KatasCompleted from "../Components/KatasCompleted";
 import AdminKatasReserved from '../Components/AdminKatasReserved';
-import { getReservedKataByCodeWarName } from '../Services/DataContext';
+import { getReservedKataByCodeWarName, getUserByUsername, getCohortByCohortName } from '../Services/DataContext';
 import ReserveContext from "../Context/ReserveContext";
 
 
 
 export default function AdminDashboard() {
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch } = useContext(ReserveContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch,searchCompletedKatas, setSearchCompletedKatas,searchedCohortName,setSearchedCohortName,searchedCohortLvl,setSearchedCohortLvl } = useContext(ReserveContext);
 
 
   const handleSearch = async () => {
+
+    let fetchedSearchUser = await getUserByUsername(userSearch);
+    console.log(fetchedSearchUser);
+    setSearchedCohortName(fetchedSearchUser.cohortName);
+    let fetchedCohort = await getCohortByCohortName(fetchedSearchUser.cohortName);
+    setSearchedCohortLvl(fetchedCohort[0].cohortLevelOfDifficulty);
+
     let searchedUsersReservedKatas = await getReservedKataByCodeWarName(userSearch);
     console.log(searchedUsersReservedKatas);
+
+    let searchCompletedKata = await getReservedKataByCodeWarName(userSearch);
+    setSearchCompletedKatas(searchCompletedKata.filter(kata => kata.isCompleted == true));
 
     let notCompletedKatas = searchedUsersReservedKatas.filter(kata => kata.isCompleted === false);
     setAdminIncompleteKatas(notCompletedKatas);
