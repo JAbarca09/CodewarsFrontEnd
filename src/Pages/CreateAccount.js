@@ -131,8 +131,8 @@ export default function CreateAccount() {
             </Col>
           </Row>
           </div>
-          <ToastContainer position="top-center" className="mt-5">
-          <Toast show={showA} onClose={toggleShowA} delay={5000} autohide >
+          <ToastContainer position="top-center" className="mt-Custom">
+          <Toast show={showA} onClose={toggleShowA} delay={5000} autohide className="CustomWidth">
          <Toast.Header className="RedToast">
            <strong className="me-auto whiteFontjustFont">Unable to Create User</strong>
           </Toast.Header>
@@ -141,7 +141,7 @@ export default function CreateAccount() {
         </ToastContainer>
 
           <ToastContainer position="top-center" className="mt-5">
-          <Toast show={showB} onClose={toggleShowB} delay={5000} autohide>
+          <Toast show={showB} onClose={toggleShowB} delay={5000} autohide className="CustomWidth">
          <Toast.Header className="customColor">
            <strong className="me-auto whiteFontjustFont">User Created</strong>
           </Toast.Header>
