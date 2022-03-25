@@ -81,7 +81,8 @@ export default function Dashboard() {
         }
       }
     }
-
+    
+    //check: 1. does the kata exist, 2. is the kata completed or reserved all ready? 3. is the kata in the cohort level range? 4. Is the maximum amount of katas reservered reached?
     if (allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || inRange === false || theUsersReservedKatas.length === 3) {
       toggleShowA();
       setMatch(true);
