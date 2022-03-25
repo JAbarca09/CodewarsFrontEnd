@@ -247,6 +247,8 @@ export default function Dashboard() {
                     show={!showA}
                     onClose={toggleShowA}
                     className="katasErrorMsg"
+                    delay={5000}
+                    autohide
                   >
                     <Toast.Header>
                       <strong className="me-auto">Error</strong>
