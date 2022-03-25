@@ -102,7 +102,7 @@ export default function AdminCreateCohort() {
       IsArchived: false,
     };
   let results = await updateCohort(AdminMadeCohort);
-  console.log(results);
+  //console.log(results);
 };
 
   const handleChangeRole = async (item) => {
