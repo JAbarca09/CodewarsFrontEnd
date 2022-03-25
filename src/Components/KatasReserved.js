@@ -8,8 +8,7 @@ import { getReservedKataByCodeWarName, getKataBySlug } from "../Services/DataCon
 export default function KatasReserved() {
 
   let { userItems,codeWarName } = useContext(UserContext);
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser} =
-    useContext(ReserveContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser} = useContext(ReserveContext);
 
   // const [incompleteKatasArr, setIncompleteKatasArr] = useState([]);
 
