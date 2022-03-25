@@ -82,11 +82,11 @@ export default function LoginPage() {
       </Form>
     </Container>
     <ToastContainer position="top-center" className="mt-5">
-    <Toast className="CustomWidth" show={showA} onClose={toggleShowA} delay={5000} autohide>
+    <Toast show={showA} onClose={toggleShowA} delay={5000} autohide className="CustomWidth" >
       <Toast.Header className="RedToast whiteFontjustFont" >
         <strong className="me-auto">Unable to login</strong>
       </Toast.Header>
-      <Toast.Body>CodeWarName and/or password is incorrect. Please try again.</Toast.Body>
+      <Toast.Body className="toastBg">CodeWarName and/or password is incorrect. Please try again.</Toast.Body>
     </Toast>
   </ToastContainer>
   </>

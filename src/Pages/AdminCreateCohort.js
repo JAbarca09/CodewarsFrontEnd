@@ -291,9 +291,9 @@ export default function AdminCreateCohort() {
         </Modal>
       </Container>
       <ToastContainer position="top-center" className="mt-5 ">
-    <Toast show={showA} onClose={toggleShowA} delay={5000} autohide >
-      <Toast.Header >
-        <strong className="me-auto">Unable to Create Cohort</strong>
+    <Toast show={showA} onClose={toggleShowA} delay={5000} autohide className="CustomWidth">
+      <Toast.Header className="RedToast">
+        <strong className="me-auto whiteFontjustFont">Unable to Create Cohort</strong>
       </Toast.Header>
       <Toast.Body className="toastBg">The Cohort name you entered already exists. Please try again.</Toast.Body>
     </Toast>
