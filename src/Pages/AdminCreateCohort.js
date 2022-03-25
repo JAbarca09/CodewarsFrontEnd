@@ -8,24 +8,30 @@ import {
   Modal,
   Table,
   Toast,
-  ToastContainer
+  ToastContainer,
 } from "react-bootstrap";
 import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
-import { getUserByUsername, checkToken, updateCohort} from "../Services/DataContext";
+import {
+  getUserByUsername,
+  checkToken,
+  updateCohort,
+} from "../Services/DataContext";
 import { useNavigate } from "react-router";
-import { getUsersByCohortName, updateUser, getallCohorts, getCohortByCohortName, createCohort } from "../Services/DataContext";
+import {
+  getUsersByCohortName,
+  updateUser,
+  getallCohorts,
+  getCohortByCohortName,
+  createCohort,
+} from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import './PagesStyle.css';
+import "./PagesStyle.css";
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
 export default function AdminCreateCohort() {
-  
   let navigate = useNavigate();
-  let {
-    userItems,
-    kataDifficulty,
-    setKataDifficulty
-  } = useContext(UserContext);
+  let { userItems, kataDifficulty, setKataDifficulty } =
+    useContext(UserContext);
 
   const [selectCohort, setSelectCohort] = useState("");
   const [selectCohortRank, setSelectCohortRank] = useState("");
@@ -35,17 +41,15 @@ export default function AdminCreateCohort() {
 
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-  
+
   const handleClose = () => setShow(false);
-  
-  
+
   const handleShow = async () => {
     setShow(true);
     let displayRank = await getCohortByCohortName(selectCohort);
     setKataDifficulty(displayRank[0].cohortLevelOfDifficulty);
     setEditCohort(displayRank[0]);
-
-  }
+  };
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
   const [showA, setShowA] = useState(false);
@@ -56,36 +60,35 @@ export default function AdminCreateCohort() {
 
   const [showC, setShowC] = useState(false);
   const toggleShowC = () => setShowC(!showC);
-  
+
   const handleCohortSelect = async (e) => {
     setSelectCohort(e.target.value);
     let cohort = e.target.value;
     let seasonUsers = await getUsersByCohortName(cohort);
     setDisplayUsers(seasonUsers);
-  }
-  
+    //console.log(seasonUsers);
+  };
+
   const [cohortRank, setCohortRank] = useState("");
   const handleCohortRank = async (e) => {
     setSelectCohortRank(e.target.value);
     setCohortRank(e.target.value);
-  }
+  };
   const [cohortNames, setCohortNames] = useState("");
-  
+
   useEffect(async () => {
     if (!checkToken()) {
       navigate("/login");
     } else {
-      
-      if(!userItems.isAdmin){
-        navigate("/dashboard")
-      };
+      if (!userItems.isAdmin) {
+        navigate("/dashboard");
+      }
       let displayCohorts = await getallCohorts();
       setAllCohorts(displayCohorts);
     }
   }, []);
 
-
-  const handleCohort = async () => {  
+  const handleCohort = async () => {
     setShow2(false);
     const AdminMadeCohort = {
       Id: 0,
@@ -96,18 +99,16 @@ export default function AdminCreateCohort() {
       IsArchived: false,
     };
     let results = await createCohort(AdminMadeCohort);
-    if(results == true){
+    if (results == true) {
       toggleShowC();
-    }
-    else if(results == false)
-    {
+    } else if (results == false) {
       toggleShowA();
     }
     let displayCohorts = await getallCohorts();
-      setAllCohorts(displayCohorts);
-};
+    setAllCohorts(displayCohorts);
+  };
 
-  const handleEditCohort = async () => {  
+  const handleEditCohort = async () => {
     setShow(false);
     const AdminMadeCohort = {
       Id: editCohort.id,
@@ -117,37 +118,47 @@ export default function AdminCreateCohort() {
       DateCreated: new Date(),
       IsArchived: false,
     };
-    
-  let results = await updateCohort(AdminMadeCohort);
-  //console.log(results);
-  if(results == true){
-    toggleShowB();
-  }
-  else if(results == false)
-  {
-    toggleShowA();
-  }
-  let displayCohorts = await getallCohorts();
-      setAllCohorts(displayCohorts);
-};
+
+    let results = await updateCohort(AdminMadeCohort);
+    //console.log(results);
+    if (results == true) {
+      toggleShowB();
+    } else if (results == false) {
+      toggleShowA();
+    }
+    let displayCohorts = await getallCohorts();
+    setAllCohorts(displayCohorts);
+  };
 
   const handleChangeRole = async (item) => {
     item.isAdmin = !item.isAdmin;
-    let result = await  updateUser(item.id, item.codeWarName, item.cohortName, item.isAdmin, item.isDeleted);
-    if(result){
+    let result = await updateUser(
+      item.id,
+      item.codeWarName,
+      item.cohortName,
+      item.isAdmin,
+      item.isDeleted
+    );
+    if (result) {
       let updatedUsers = await getUsersByCohortName(item.cohortName);
       setDisplayUsers(updatedUsers);
     }
-  } 
+  };
 
   const handleDelete = async (item) => {
     item.isDeleted = !item.isDeleted;
-    let result = await  updateUser(item.id, item.codeWarName, item.cohortName, item.isAdmin, item.isDeleted);
-    if(result){
+    let result = await updateUser(
+      item.id,
+      item.codeWarName,
+      item.cohortName,
+      item.isAdmin,
+      item.isDeleted
+    );
+    if (result) {
       let updatedUsers = await getUsersByCohortName(item.cohortName);
       setDisplayUsers(updatedUsers);
     }
-  }
+  };
 
   return (
     <>
@@ -155,25 +166,26 @@ export default function AdminCreateCohort() {
       <Container fluid className="backgroundColor">
         <Row className="pt-4 d-flex justify-content-center">
           <Col md={4}>
-            <Form.Select onChange={handleCohortSelect} aria-label="Default select example">
+            <Form.Select
+              onChange={handleCohortSelect}
+              aria-label="Default select example"
+            >
               <option>Select a Cohort</option>
-              {
-                  allCohorts.map((cohort, id) => {
-                    return (
-                      <>
-                        <option value={cohort.cohortName}>{cohort.cohortName}</option>
-                      </>
-                    ) 
-                  })
-                }
+              {allCohorts.map((cohort, id) => {
+                return (
+                  <>
+                    <option value={cohort.cohortName}>
+                      {cohort.cohortName}
+                    </option>
+                  </>
+                );
+              })}
             </Form.Select>
           </Col>
           <Col md={4} className="d-flex justify-content-center">
-            {
-              selectCohort === "" ? null 
-              :
+            {selectCohort === "" ? null : (
               <Button onClick={handleShow}>Edit Cohort</Button>
-            }
+            )}
           </Col>
           <Col md={4} className="d-flex justify-content-center">
             <Button onClick={handleShow2}>Create Cohort</Button>
@@ -193,32 +205,35 @@ export default function AdminCreateCohort() {
                 </tr>
               </thead>
               <tbody>
-                {
-                  displayUsers.map((user, idx) => {
-                    return !user.isDeleted ? (
-                      <>
+                {displayUsers.map((user, idx) => {
+                  return !user.isDeleted ? (
+                    <>
                       {
-                         
-                          <tr className="text-center"  key={idx}>
-                        <td>{user.id}</td>
-                        <td>{user.codeWarName}</td>
-                        {
-                          user.isAdmin ? <td>Admin</td> : <td>Student</td>
-                        }
-                        <td>
-                          <Button variant="success" onClick={() => handleChangeRole(user)}>Change Role</Button>
-                        </td>
-                        <td>
-                          <Button variant="danger" onClick={() => handleDelete(user)}>Delete User</Button>
-                        </td>
-                      </tr>
-                         
-                      } 
-                      </>
-                    ) : null
-                  })
-                }
-                
+                        <tr className="text-center" key={idx}>
+                          <td>{user.id}</td>
+                          <td>{user.codeWarName}</td>
+                          {user.isAdmin ? <td>Admin</td> : <td>Student</td>}
+                          <td>
+                            <Button
+                              variant="success"
+                              onClick={() => handleChangeRole(user)}
+                            >
+                              Change Role
+                            </Button>
+                          </td>
+                          <td>
+                            <Button
+                              variant="danger"
+                              onClick={() => handleDelete(user)}
+                            >
+                              Delete User
+                            </Button>
+                          </td>
+                        </tr>
+                      }
+                    </>
+                  ) : null;
+                })}
               </tbody>
             </Table>
           </Col>
@@ -241,7 +256,11 @@ export default function AdminCreateCohort() {
             </>
           </Modal.Body>
           <Modal.Body>
-            <Form.Select aria-label="Default select example" onChange={(e) => setKataDifficulty(e.target.value)} value={kataDifficulty}>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(e) => setKataDifficulty(e.target.value)}
+              value={kataDifficulty}
+            >
               <option>Select Cohort Difficulty</option>
               <option value="8">8 Kyu</option>
               <option value="7">7 Kyu</option>
@@ -280,7 +299,10 @@ export default function AdminCreateCohort() {
             </>
           </Modal.Body>
           <Modal.Body>
-            <Form.Select aria-label="Default select example" onChange={handleCohortRank}>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={handleCohortRank}
+            >
               <option>Select Cohort Difficulty</option>
               <option value="8">8 Kyu</option>
               <option value="7">7 Kyu</option>
@@ -303,31 +325,59 @@ export default function AdminCreateCohort() {
         </Modal>
       </Container>
       <ToastContainer position="top-center" className="mt-5 ">
-    <Toast show={showA} onClose={toggleShowA} delay={5000} autohide className="CustomWidth">
-      <Toast.Header className="RedToast">
-        <strong className="me-auto whiteFontjustFont">Unable to Create Cohort</strong>
-      </Toast.Header>
-      <Toast.Body className="toastBg">The Cohort name you entered already exists. Please try again.</Toast.Body>
-    </Toast>
-  </ToastContainer>
+        <Toast
+          show={showA}
+          onClose={toggleShowA}
+          delay={5000}
+          autohide
+          className="CustomWidth"
+        >
+          <Toast.Header className="RedToast">
+            <strong className="me-auto whiteFontjustFont">
+              Unable to Create Cohort
+            </strong>
+          </Toast.Header>
+          <Toast.Body className="toastBg">
+            The Cohort name you entered already exists. Please try again.
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
 
-  <ToastContainer position="top-center" className="mt-5 ">
-    <Toast show={showB} onClose={toggleShowB} delay={5000} autohide className="CustomWidth">
-      <Toast.Header className="customColor">
-        <strong className="me-auto whiteFontjustFont">Edited Cohort</strong>
-      </Toast.Header>
-      <Toast.Body className="toastBg">Successfully Edited Cohort</Toast.Body>
-    </Toast>
-  </ToastContainer>
+      <ToastContainer position="top-center" className="mt-5 ">
+        <Toast
+          show={showB}
+          onClose={toggleShowB}
+          delay={5000}
+          autohide
+          className="CustomWidth"
+        >
+          <Toast.Header className="customColor">
+            <strong className="me-auto whiteFontjustFont">Edited Cohort</strong>
+          </Toast.Header>
+          <Toast.Body className="toastBg">
+            Successfully Edited Cohort
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
 
-  <ToastContainer position="top-center" className="mt-5 ">
-    <Toast show={showC} onClose={toggleShowC} delay={5000} autohide className="CustomWidth">
-      <Toast.Header className="customColor">
-        <strong className="me-auto whiteFontjustFont">Created Cohort</strong>
-      </Toast.Header>
-      <Toast.Body className="toastBg">{cohortNames} Successfully Created</Toast.Body>
-    </Toast>
-  </ToastContainer>
+      <ToastContainer position="top-center" className="mt-5 ">
+        <Toast
+          show={showC}
+          onClose={toggleShowC}
+          delay={5000}
+          autohide
+          className="CustomWidth"
+        >
+          <Toast.Header className="customColor">
+            <strong className="me-auto whiteFontjustFont">
+              Created Cohort
+            </strong>
+          </Toast.Header>
+          <Toast.Body className="toastBg">
+            {cohortNames} Successfully Created
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
     </>
   );
 }
