@@ -31,7 +31,6 @@ export default function LoginPage() {
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
       let userItems1 = await getUserByUsername(codeWarName);
-      console.log(userItems1);
       setUserItems(userItems1);
       navigate("/dashboard");
       setCohortName(userData.codeWarName);

@@ -17,11 +17,15 @@ export default function Dashboard() {
   let reservedKatasByUser;
 
   useEffect(async () => {
+    
     let fetchedCurrentUser = await getUserByUsername(userItems.codeWarName);
     setIsAdmin(fetchedCurrentUser.isAdmin);
 
     let userCohort = await getCohortByCohortName(userItems.cohortName);
+    
     setCohort(userCohort[0].cohortLevelOfDifficulty);
+    
+    
    }, []);
 
   const [showA, setShowA] = useState(true);
@@ -61,8 +65,10 @@ export default function Dashboard() {
     for(let k = 0; k<=Number(cohort); k++){
       if(inRange == false){
         if(k === fetchedKataRank){
+         
           inRange = true;
         }else{
+          
         }
       }
     }
@@ -93,7 +99,7 @@ export default function Dashboard() {
       IsDeleted: false,
     };
     let results = await updateReservedKata(userReservedKata);
-    console.log(results);
+    
   };
 
   //better version but still doesn't work for every single kata!
@@ -117,7 +123,6 @@ export default function Dashboard() {
         finalArr.push(wordArr[j].toLowerCase());
       }
     }
-    console.log(finalArr.join(""))
     return finalArr.join("");
   }
 

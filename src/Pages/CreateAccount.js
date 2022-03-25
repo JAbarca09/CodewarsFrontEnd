@@ -37,8 +37,8 @@ export default function CreateAccount() {
       toggleShowB();
     }
 
-    console.log(result);
-    console.log(userData);
+    
+   
     let allAddedUsers = await getAllUsers();     
     setAllUsers([...allAddedUsers]);
   };
@@ -61,7 +61,7 @@ export default function CreateAccount() {
 
   useEffect( async() => {
     let displayCohorts = await getallCohorts();
-    console.log(displayCohorts);
+    
     setAllCohorts(displayCohorts);
       
   }, [])
