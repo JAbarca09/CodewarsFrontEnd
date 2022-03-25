@@ -12,7 +12,7 @@ import Navigation from "../Components/Navigation";
 import UserContext from "../Context/UserContext";
 import { getUserByUsername, checkToken, updateCohort} from "../Services/DataContext";
 import { useNavigate } from "react-router";
-import { getUsersByCohortName, updateUser, getallCohorts, getCohortByCohortName } from "../Services/DataContext";
+import { getUsersByCohortName, updateUser, getallCohorts, getCohortByCohortName, createCohort } from "../Services/DataContext";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 //The edit cohort button will only display when a cohort has been selected, use a ternary operator
@@ -78,7 +78,7 @@ export default function AdminCreateCohort() {
 
 
   const handleCohort = async () => {  
-    setShow(false);
+    setShow2(false);
     const AdminMadeCohort = {
       Id: 0,
       CohortName: cohortNames,
@@ -87,7 +87,7 @@ export default function AdminCreateCohort() {
       DateCreated: new Date(),
       IsArchived: false,
     };
-    let results = await updateCohort(AdminMadeCohort);
+    let results = await createCohort(AdminMadeCohort);
     //console.log(results);
 };
 
