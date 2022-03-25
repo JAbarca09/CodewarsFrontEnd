@@ -89,6 +89,8 @@ export default function AdminCreateCohort() {
     };
     let results = await createCohort(AdminMadeCohort);
     //console.log(results);
+    let displayCohorts = await getallCohorts();
+      setAllCohorts(displayCohorts);
 };
 
   const handleEditCohort = async () => {  
@@ -103,6 +105,8 @@ export default function AdminCreateCohort() {
     };
   let results = await updateCohort(AdminMadeCohort);
   //console.log(results);
+  let displayCohorts = await getallCohorts();
+      setAllCohorts(displayCohorts);
 };
 
   const handleChangeRole = async (item) => {
