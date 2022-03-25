@@ -5,6 +5,8 @@ export default function useReserve(){
     const [kata, setKata] = useState("");
     const [kataSlug, setKataSlug] = useState("");
     const [userRerservedKatas, setDisplayReservebyUser] = useState([]);
+    const [adminIncompleteKatas, setAdminIncompleteKatas] = useState([]);
+    const [userSearch ,setUserSearch] = useState("");
 
-  return {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser}
+  return {searchKata,setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch}
 }
