@@ -17,16 +17,16 @@ export default function Dashboard() {
   let reservedKatasByUser;
 
   useEffect(async () => {
-    console.log(userItems.cohortName);
+    
     let fetchedCurrentUser = await getUserByUsername(userItems.codeWarName);
     setIsAdmin(fetchedCurrentUser.isAdmin);
 
     // let userCompletedKatas = await getAllCompletedKatasByCodeWarName(userItems.codeWarName);
     let userCohort = await getCohortByCohortName(userItems.cohortName);
-    // console.log(userItems.cohortName)
+    
     setCohort(userCohort[0].cohortLevelOfDifficulty);
-    // console.log(userCohort.cohortLevelOfDifficulty);
-    console.log(userCohort[0].cohortLevelOfDifficulty)
+    
+    
    }, []);
 
   const [showA, setShowA] = useState(true);
@@ -69,10 +69,10 @@ export default function Dashboard() {
       if(inRange == false){
         //checking if the kata is in the range of cohort difficulty!
         if(k === fetchedKataRank){
-          // console.log("Kata in range!");
+         
           inRange = true;
         }else{
-          // console.log("Kata out of range");
+          
         }
       }
     }
@@ -104,7 +104,7 @@ export default function Dashboard() {
       IsDeleted: false,
     };
     let results = await updateReservedKata(userReservedKata);
-    console.log(results);
+    
   };
 
   //better version but still doesn't work for every single kata!
@@ -128,7 +128,6 @@ export default function Dashboard() {
         finalArr.push(wordArr[j].toLowerCase());
       }
     }
-    console.log(finalArr.join(""))
     return finalArr.join("");
 
     // let splitArr = kataName.split(" ");
