@@ -8,10 +8,10 @@ import ReserveContext from "../Context/ReserveContext";
 export default function KatasCompleted() {
 
   let { userItems, codeWarName, isAdmin } = useContext(UserContext);
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser} =
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, completedKatas, setCompletedKatas} =
     useContext(ReserveContext);
 
-  const [completedKatas, setCompletedKatas] = useState([]);
+  
 
   useEffect(async () => {
     // let completedKatasByCodeWarsUser = await getAllCompletedKatasByCodeWarName(codeWarName);

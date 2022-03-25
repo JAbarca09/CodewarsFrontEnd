@@ -10,7 +10,7 @@ import ReserveContext from "../Context/ReserveContext";
 
 
 export default function AdminDashboard() {
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch } = useContext(ReserveContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch, setCompletedKatas } = useContext(ReserveContext);
 
 
   const handleSearch = async () => {
