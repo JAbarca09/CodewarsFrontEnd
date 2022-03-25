@@ -28,6 +28,7 @@ export default function Dashboard() {
     let reservedKatasByUser;
 
   useEffect(async () => {
+    //use "Admin" for testing 
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
     let userCohort = await getCohortByCodeWarName(codeWarName);
     reservedKatasByUser = await getReservedKataByCodeWarName(codeWarName);
