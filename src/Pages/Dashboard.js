@@ -30,8 +30,8 @@ export default function Dashboard() {
   useEffect(async () => {
     //use "Admin" for testing 
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
-    let userCohort = await getCohortByCodeWarName(codeWarName);
-    reservedKatasByUser = await getReservedKataByCodeWarName(codeWarName);
+    let userCohort = await getCohortByCodeWarName("Admin");
+    reservedKatasByUser = await getReservedKataByCodeWarName("Admin");
     setTheUsersReservedKatas(reservedKatasByUser);
     setCohort(userCohort);
     console.log(userCohort);
@@ -272,7 +272,7 @@ export default function Dashboard() {
                       <strong className="me-auto">Error</strong>
                     </Toast.Header>
                     <Toast.Body>
-                      This Kata is already reserved or completed!
+                      This Kata is already reserved, completed or you reached the maximum amount of reserves
                     </Toast.Body>
                   </Toast>
                 </Col>
