@@ -7,7 +7,7 @@ import UserContext from "../Context/UserContext";
 import ReserveContext from "../Context/ReserveContext";
 import { Container, Row, Col, Button, Form, Table, Toast, } from "react-bootstrap";
 import "./PagesStyle.css";
-import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName} from "../Services/DataContext";
+import { getKataBySlug, updateReservedKata, getAllReservedKatas, getAllCompletedKatas, getAllCompletedKatasByCodeWarName, getCohortByCodeWarName, getReservedKataByCodeWarName } from "../Services/DataContext";
 
 let exampleUser = {
   Id: 0,
@@ -24,12 +24,16 @@ export default function Dashboard() {
   let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug } =
     useContext(ReserveContext);
 
-    let userCohort
+    let userCohort;
+    let reservedKatasByUser;
 
   useEffect(async () => {
     let userCompletedKatas = await getAllCompletedKatasByCodeWarName(codeWarName);
-    let userCohort = await getCohortByCodeWarName("admin");
+    let userCohort = await getCohortByCodeWarName(codeWarName);
+    reservedKatasByUser = await getReservedKataByCodeWarName(codeWarName);
+    setTheUsersReservedKatas(reservedKatasByUser);
     setCohort(userCohort);
+    console.log(userCohort);
   }, []);
 
   const [showA, setShowA] = useState(true);
@@ -37,6 +41,7 @@ export default function Dashboard() {
   const [match, setMatch] = useState(false);
 
   const [cohort, setCohort] = useState({});
+  const [theUsersReservedKatas, setTheUsersReservedKatas] = useState([]);
 
   //button "Search"
   const handleSearch = async () => {
@@ -61,11 +66,22 @@ export default function Dashboard() {
       allCompletedKataNames.push(allCompletedKata[j].kataName);
     }
 
+    // || allReservedKata.length >= 3 WE NEED THIS CHECK AS WELL, CHECK THE NUMBER OF KATAS THE USER HAS ALREADY RESERVED
+    
+    let inRange = false;
+    for(let k = 0; k<=Number(cohort.cohortLevelOfDifficulty[0]); k++){
+      if(inRange == false){
+        //checking if the kata is in the range of cohort difficulty!
+        if(k === fetchedKataRank){
+          console.log("Kata in range!");
+          inRange = true;
+        }else{
+          console.log("Kata out of range");
+        }
+      }
+    }
 
-    //refer to the fetched kata instead thehehe
-    //if the cohort level (the user) is higher(8) than the kata level (6), don't let them reserve
-    // || allReservedKata.length >= 3
-    if ( allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || Number(cohort.cohortLevelOfDifficulty[0]) <= fetchedKataRank) {
+    if (allReservedKataNames.includes(fetchedKata.name) || allCompletedKataNames.includes(fetchedKata.name) || inRange === false || theUsersReservedKatas.length === 3) {
       toggleShowA();
       setMatch(true);
     } else {
@@ -92,7 +108,7 @@ export default function Dashboard() {
     console.log(results);
   };
 
-  //only works for words and spaces not special characters and ? / . ,
+  //better version but still doesn't work for every single kata!
   function TurnNameToSlugFormat(kataName) {
     let kataNameWithNoSpecialChars = kataName.replace(/[^\w\s]/gi, '');
     let wordArr = kataNameWithNoSpecialChars.split(" ");
