@@ -1,30 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Table, Button, Accordion } from "react-bootstrap";
 import "./ComponentsStyle.css";
-import { getAllCompletedKatasByCodeWarName } from "../Services/DataContext";
+import { getAllCompletedKatasByCodeWarName, getReservedKataByCodeWarName } from "../Services/DataContext";
 import UserContext from "../Context/UserContext";
+import ReserveContext from "../Context/ReserveContext";
 
 export default function KatasCompleted() {
 
-  let { codeWarName, isAdmin } = useContext(UserContext);
+  let { userItems, codeWarName, isAdmin } = useContext(UserContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser} =
+    useContext(ReserveContext);
+
+  const [completedKatas, setCompletedKatas] = useState([]);
 
   useEffect(async () => {
-    let completedKatasByCodeWarsUser = await getAllCompletedKatasByCodeWarName(codeWarName);
-    console.log(completedKatasByCodeWarsUser);
-    setCompletedKatas(completedKatasByCodeWarsUser);
+    // let completedKatasByCodeWarsUser = await getAllCompletedKatasByCodeWarName(codeWarName);
+    let reservedKatas = await getReservedKataByCodeWarName(userItems.codeWarName);
+    setCompletedKatas(reservedKatas.filter(kata => kata.isCompleted == true));
+    // console.log(completedKatasByCodeWarsUser);
+    // setCompletedKatas(completedKatasByCodeWarsUser);
   }, []);
 
-    let exampleUser = {
-        Id: 0,
-        CohortName: "Season4",
-        CodeWarName: "Jabarca435",
-        Salt: "",
-        Hash: "",
-        IsAdmin: true,
-        IsDeleted: false,
-      };
-
-      const [completedKatas, setCompletedKatas] = useState([]);
 
 
   return (
@@ -32,7 +28,7 @@ export default function KatasCompleted() {
     <Row>
         {
         isAdmin == true ?
-      <h5 className="mt-4 d-flex justify-content-center whiteFont2">Katas Completed by {exampleUser.CodeWarName}</h5>
+      <h5 className="mt-4 d-flex justify-content-center whiteFont2">Katas Completed by {codeWarName }</h5>
       :
       <h5 className="mt-4 d-flex justify-content-center whiteFont2">Katas Completed</h5>
         }
@@ -40,7 +36,7 @@ export default function KatasCompleted() {
         <Accordion.Item eventKey="0">
             {
                 isAdmin == true ?
-                <Accordion.Header>Katas Completed by {exampleUser.CodeWarName}</Accordion.Header>
+                <Accordion.Header>Katas Completed by {codeWarName}</Accordion.Header>
                 :
                 <Accordion.Header>Katas Completed</Accordion.Header>
             }
@@ -48,15 +44,16 @@ export default function KatasCompleted() {
           {
             completedKatas.map((kata, idx) => {
               return (
-                <Row key={idx}>
-                  <Col md={6} className="d-flex justify-content-center">
+                <Row key={idx} className="">
+                  <Col md={6} className="mb-1 d-flex justify-content-center">
                     <a href={kata.kataLink} target="_blank">
                     <td colSpan={2}>{kata.kataName}</td>
                     </a>
                   </Col>
-                  <Col md={6} className="d-flex justify-content-center">
+                  <Col md={6} className="mb-2 d-flex justify-content-center">
                     <td colSpan={2}>{kata.kataRank}</td>
                   </Col>
+                  <hr className="mt-2"/>
                 </Row>
               )
             })

@@ -11,15 +11,6 @@ import CodewarsLogo from "../images/codestack-logo.svg";
 import UserContext from "../Context/UserContext";
 import { Link } from "react-router-dom";
 
-let exampleUser = {
-  Id: 0,
-  CohortName: "Season4",
-  CodeWarName: "Jabarca435",
-  Salt: "",
-  Hash: "",
-  IsAdmin: true,
-  IsDeleted: false,
-};
 
 export default function Navigation() {
 
@@ -46,7 +37,7 @@ export default function Navigation() {
                     <span className="whiteFont">Dashboard</span>
                   </Nav.Link>
                   {/* Below only appears for admins */}
-                {exampleUser.IsAdmin == true ?
+                {isAdmin == true ?
                 <>
                   <Nav.Link as={Link} to="/creataccount">
                     <span className="whiteFont">Create User</span>
