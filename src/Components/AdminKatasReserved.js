@@ -6,7 +6,7 @@ import ReserveContext from "../Context/ReserveContext";
 import { getCohortByCohortName, getUserByUsername, UpdateReservation, getAllCompletedKatasByCodeWarName } from "../Services/DataContext";
 
 export default function AdminKatasReserved() {
-  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch, searchedCohortName,setSearchedCohortName,searchedCohortLvl,setSearchedCohortLvl} = useContext(ReserveContext);
+  let { searchKata, setSearchKata, kata, setKata, kataSlug, setKataSlug, userRerservedKatas, setDisplayReservebyUser, adminIncompleteKatas, setAdminIncompleteKatas, userSearch, setUserSearch, searchedCohortName,setSearchedCohortName,searchedCohortLvl,setSearchedCohortLvl, completedKatas,setCompletedKatas} = useContext(ReserveContext);
   let { codeWarName, cohortName, isAdmin } = useContext(UserContext);
   // const [searchedCohortName, setSearchedCohortName] = useState("");
   // const [searchedCohortLvl, setSearchedCohortLvl] = useState(0);
