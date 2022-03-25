@@ -163,7 +163,7 @@ export default function AdminCreateCohort() {
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr className="text-center">
-                  <th>#</th>
+                  <th>Id</th>
                   <th>CodeWar Username</th>
                   <th>Role</th>
                   <th>Change Role</th>
@@ -172,13 +172,13 @@ export default function AdminCreateCohort() {
               </thead>
               <tbody>
                 {
-                  displayUsers.map((user, id) => {
+                  displayUsers.map((user, idx) => {
                     return !user.isDeleted ? (
                       <>
                       {
                          
-                          <tr className="text-center"  key={id}>
-                        <td>{id+1}</td>
+                          <tr className="text-center"  key={idx}>
+                        <td>{user.id}</td>
                         <td>{user.codeWarName}</td>
                         {
                           user.isAdmin ? <td>Admin</td> : <td>Student</td>
