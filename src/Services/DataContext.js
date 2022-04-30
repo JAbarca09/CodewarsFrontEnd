@@ -12,7 +12,7 @@ function checkToken(){
 
 //Create Account
 async function createAccount(createdUser){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/User/AddUser', {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/User/AddUser', {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -32,7 +32,7 @@ async function createAccount(createdUser){
 
 //Login
 async function login(userInfo){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/User/Login', {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/User/Login', {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -52,7 +52,7 @@ async function login(userInfo){
 
 //Update User
 async function updateUser(id, codeWarName, cohortName, isAdmin, isDeleted){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/User/UpdateUsername/'+id+'/'+codeWarName+'/'+cohortName+'/'+isAdmin+'/'+isDeleted, {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/User/UpdateUsername/'+id+'/'+codeWarName+'/'+cohortName+'/'+isAdmin+'/'+isDeleted, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -72,7 +72,7 @@ async function updateUser(id, codeWarName, cohortName, isAdmin, isDeleted){
 
 //Give User Admin
 async function giveUserAdmin(id){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/User/GiveUserAdmin/'+id, {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/User/GiveUserAdmin/'+id, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -92,7 +92,7 @@ async function giveUserAdmin(id){
 
 //Permanently Delete a User
 async function permanentlyDeleteUser(id){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/User/DeleteUser/'+id, {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/User/DeleteUser/'+id, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -112,7 +112,7 @@ async function permanentlyDeleteUser(id){
 
 //GetAllUsers
 async function getAllUsers(){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/User/GetAllUsers");
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/User/GetAllUsers");
     let data = await res.json();
     // console.log(data);
     return data;
@@ -120,7 +120,7 @@ async function getAllUsers(){
 
 //GetUserByUsername
 async function getUserByUsername(codeWarName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/User/GetUserByUsername/"+codeWarName);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/User/GetUserByUsername/"+codeWarName);
     let data = await res.json();
     // console.log(data);
     return data;
@@ -128,7 +128,7 @@ async function getUserByUsername(codeWarName){
 
 //GetUserById
 async function getUserById(id){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/User/GetUserByUsername/"+id);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/User/GetUserByUsername/"+id);
     let data = await res.json();
     // console.log(data);
     return data;
@@ -136,7 +136,7 @@ async function getUserById(id){
 
 //Get Users by Cohort
 async function getUsersByCohortName(cohortName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/User/GetAllUsersByCohortName/"+cohortName);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/User/GetAllUsersByCohortName/"+cohortName);
     let data = await res.json();
     // console.log(data);
     return data;
@@ -147,21 +147,21 @@ async function getUsersByCohortName(cohortName){
 
 //Get Reserved Kata By CodeWar Name
 async function getReservedKataByCodeWarName(codeWarName){
-    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/Reservation/GetReservedKataByCodeWarName/${codeWarName}`);
+    let res = await fetch(`https://scottskatatrackerbe.azurewebsites.net/Reservation/GetReservedKataByCodeWarName/${codeWarName}`);
     let data = await res.json();
     return data;
 }
 
 //Get All Reserved Katas
 async function getAllReservedKatas(){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Reservation/GetAllReservedKatas");
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/Reservation/GetAllReservedKatas");
     let data = await res.json();
     return data;
 }
 
 //Update Reserved Katas
 async function updateReservedKata(updateReservation){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/Reservation/UpdateReservedKata', {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/Reservation/UpdateReservedKata', {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -180,7 +180,7 @@ async function updateReservedKata(updateReservation){
 }
 
 async function UpdateReservation(Id, IsCompleted){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Reservation/UpdateReservation/"+Id+"/"+IsCompleted, {
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/Reservation/UpdateReservation/"+Id+"/"+IsCompleted, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -203,20 +203,20 @@ async function UpdateReservation(Id, IsCompleted){
 
 //Get All Completed Katas
 async function getAllCompletedKatas(){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/CompletedKatas/GetAllCompletedKatas");
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/CompletedKatas/GetAllCompletedKatas");
     let data = await res.json();
     return data;
 }
 
 //Get Completed Katas By CodeWar Name
 async function getAllCompletedKatasByCodeWarName(codeWarName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/CompletedKatas/GetAllCompletedKatas/"+codeWarName);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/CompletedKatas/GetAllCompletedKatas/"+codeWarName);
     let data = await res.json();
     return data;
 }
 
 async function AddCompletedKata(newCompletedKata){
-    let res = await fetch(`https://codestackkatareservebackend.azurewebsites.net/CompletedKatas/AddCompletedKata`, {
+    let res = await fetch(`https://scottskatatrackerbe.azurewebsites.net/CompletedKatas/AddCompletedKata`, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -240,7 +240,7 @@ async function AddCompletedKata(newCompletedKata){
 
 //Add a Cohort
 async function createCohort(createdCohort){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/Cohort/AddCohort', {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/Cohort/AddCohort', {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -260,7 +260,7 @@ async function createCohort(createdCohort){
 
 //Update Cohort
 async function updateCohort(updatedCohort){
-    let res = await fetch('https://codestackkatareservebackend.azurewebsites.net/Cohort/UpdateCohort', {
+    let res = await fetch('https://scottskatatrackerbe.azurewebsites.net/Cohort/UpdateCohort', {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -280,21 +280,21 @@ async function updateCohort(updatedCohort){
 
 //Get Cohort By Cohort Name
 async function getCohortByCohortName(cohortName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortByCohortName/"+cohortName);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/Cohort/GetCohortByCohortName/"+cohortName);
     let data = await res.json();
     return data;
 }
 
 //Get Cohort By CodeWar Name
 async function getCohortByCodeWarName(codewarName){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortByCodeWarName/"+codewarName);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/Cohort/GetCohortByCodeWarName/"+codewarName);
     let data = await res.json();
     return data;
 }
 
 //Get Cohort By Id
 async function getCohortById(id){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetCohortById/"+id);
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/Cohort/GetCohortById/"+id);
     let data = await res.json();
     return data;
 }
@@ -308,7 +308,7 @@ async function getKataBySlug(slug){
 
 //Get all cohorts
 async function getallCohorts(){
-    let res = await fetch("https://codestackkatareservebackend.azurewebsites.net/Cohort/GetAllCohorts");
+    let res = await fetch("https://scottskatatrackerbe.azurewebsites.net/Cohort/GetAllCohorts");
     let data = await res.json();
     return data;
 }
